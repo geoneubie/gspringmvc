@@ -12,6 +12,7 @@ function submitForm() {
     }).done(function( data ) {
         console.log("Output:");
         console.log( data );
+        document.getElementById("output").innerHTML += data;
     });
     return false;
 }
