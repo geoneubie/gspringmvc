@@ -85,20 +85,22 @@
                                     </div>
                                     <div class="row" style="margin-top:20px;">
                                         <div class="col-sm-8">
-                                            <p class="text-muted">
-                                            <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
-                                                Ship name: <input type="text" name="shipname" value="" /><br/><br/>
-                                                Sounder: <input type="text" name="shipname" value="" /><br/><br/>
-                                                GPS: <input type="text" name="gps" value="" /><br/><br/>
-                                                <select name="dataProvider">
-                                                    <option value="Linblad">Lindblad Expeditions</option>
-                                                    <option value="Sea ID">Sea ID</option>
-                                                </select><br/>
-                                                <label>Select a file: </label><br>
-                                                <input type="file" name="file" required /><br/>
-                                                <input type="submit" value="Upload" />
-                                            </form><br>
-                                            </p>
+                                            <table>
+                                                <p class="text-muted">
+                                                <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
+                                                    <tr><td>Ship name:</td><td><input type="text" name="shipname" value="" /></td></tr>
+                                                    <tr><td>Sounder:</td><td><input type="text" name="shipname" value="" /></td></tr>
+                                                    <tr><td>GPS:</td><td><input type="text" name="gps" value="" /></td></tr>
+                                                    <tr><td>Provider:</td><td><select name="dataProvider">
+                                                            <option value="Linblad">Lindblad Expeditions</option>
+                                                            <option value="Sea ID">Sea ID</option>
+                                                        </select></td>
+                                                    </tr>
+                                                    <tr><td colspan="2"><input type="file" name="file" required /></td></tr>
+                                                    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                                                </form><br>
+                                                </p>
+                                            </table>
                                         </div>
                                         <div id="output"></div>
                                     </div>
