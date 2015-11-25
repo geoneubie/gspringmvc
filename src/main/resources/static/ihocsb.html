@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="rights" content="IHO has endeavoured to make the information on this website as accurate as possible but cannot take any responsibility for it.">
-    <meta name="author" content="Heather McCullough">
+    <meta name="author" content="David Neufeld">
     <meta name="description" content="The International Hydrographic Organization is an intergovernmental consultative and technical organization that was established in 1921 to support safety of navigation and the protection of the marine environment.">
     <title>IHO Data Centre for Digital Bathymetry (DCDB)</title>
     <link href="http://iho.int/srv1/index.php?option=com_content&view=article&id=444&Itemid=694&lang=en" rel="canonical">
     <link href="http://iho.int/srv1/templates/PrimeBlue/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
     <link href="http://iho.int/srv1/index.php?option=com_search&view=article&id=444&Itemid=694&lang=en&format=opensearch" rel="search" title="Search INTERNATIONAL HYDROGRAPHIC ORGANIZATION" type="application/opensearchdescription+xml">
-    <link rel="stylesheet" href="./ihocsb_files/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <!--<link rel="stylesheet" href="css/system.css" type="text/css" /> -->
-    <link rel="stylesheet" href="./ihocsb_files/general.css" type="text/css">
-    <link rel="stylesheet" href="./ihocsb_files/template.css" type="text/css">
-    <link rel="stylesheet" href="./ihocsb_files/custom.css" type="text/css">
-    <link rel="stylesheet" href="./ihocsb_files/dcdb.css" type="text/css">
+    <link rel="stylesheet" href="css/general.css" type="text/css">
+    <link rel="stylesheet" href="css/template.css" type="text/css">
+    <link rel="stylesheet" href="css/custom.css" type="text/css">
+    <link rel="stylesheet" href="css/dcdb.css" type="text/css">
     <!--<link rel="stylesheet" href="//iho.int/srv1/templates/system/css/system.css" type="text/css" />
     <link rel="stylesheet" href="//iho.int/srv1/templates/system/css/general.css" type="text/css" />
     <link rel="stylesheet" href="//iho.int/srv1/templates/PrimeBlue/css/template.css" type="text/css" />
@@ -28,8 +28,38 @@
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- file upload code support -->
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="uploadscript.js"></script>
+    <!-- <script src="js/jquery-1.9.1.js"></script> -->
+    <script type="text/javascript" src="js/uploadscript.js"></script>
+    <script type="text/javascript" id="www-widgetapi-script" src="js/www-widgetapi.js" async=""></script>
+    <script src="ihocsb_files/player_api"></script>
+    <script async="" src="js/analytics.js"></script>
+    <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+        </script>
+            <script type="text/javascript">
+            $("a[data-tab-destination]").on('click', function() {
+                var tab = $(this).attr('data-tab-destination');
+                $("#"+tab).click();
+            });
+        </script>
+            <script type="text/javascript">
+            var url = document.location.toString();
+        if (url.match('#')) {
+            $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+        }
+
+        // Change hash for page-reload
+        $('.nav-tabs a').on('shown.bs.tab', function (e) {
+            window.location.hash = e.target.hash;
+        })
+    </script>
+    <script id="_fed_an_ua_tag" type="text/javascript" src="./ihocsb_files/federated-analytics.js"></script>
+
 </head>
 <body id="page_bg">
 <div class="center">
@@ -80,29 +110,36 @@
                                     <h2>Crowdsourced Bathymetry (CSB) Data Upload</h2>
                                     <div class="row" style="margin-top:20px;">
                                         <div class="col-sm-8">
-                                            <p class="text-muted">The International Hydrographic Organization Data Centre for Digital Bathymetry is accepting CSB data from trusted data providers using a Geo CSV file format.</p>
+                                            <p class="text-muted">The International Hydrographic Organization Data Centre for Digital Bathymetry is accepting CSB data from trusted data providers using a CSV file format.</p>
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top:20px;">
                                         <div class="col-sm-8">
-                                            <table>
+                                            <table id="upload">
                                                 <p class="text-muted">
                                                 <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
-                                                    <tr><td>Ship name:</td><td><input type="text" name="shipname" value="" /></td></tr>
-                                                    <tr><td>Sounder:</td><td><input type="text" name="shipname" value="" /></td></tr>
-                                                    <tr><td>GPS:</td><td><input type="text" name="gps" value="" /></td></tr>
-                                                    <tr><td>Provider:</td><td><select name="dataProvider">
+                                                    <tr><th>Platform</th><th></th><th>Sensors</th><th></th></tr>
+                                                    <tr><td>Ship Name:</td><td><input type="text" name="shipname" value="" size="25"/></td><td>Sounder Make:</td><td><input type="text" name="soundermake" value="" size="25"/></td></tr>
+                                                    <tr><td>IMO No.:</td><td><input type="text" name="imonumber" value="" size="25"/></td><td>Sounder Model:</td><td><input type="text" name="soundermodel" value="" size="25"/></td></tr>
+                                                    <tr><td>Draft:</td><td><input type="text" name="draft" value="" size="5" maxlength="2"/>&nbsp;meters</td><td>Sounder Serial No.:</td><td><input type="text" name="sounderserialno" value="" size="25"/></td></tr>
+                                                    <tr><td></td><td></td><td>Longitudinal Offset:</td><td><input type="text" name="longitudinalOffsetFromGPStoSonar" value="" size="5" maxlength="2"/>&nbsp;meters</td></tr>
+                                                    <tr><td></td><td></td><td>Lateral Offset:</td><td><input type="text" name="lateralOffsetFromGPStoSonar" value="" size="5" maxlength="2"/>&nbsp;meters</td></tr>
+                                                    <tr><td></td><td></td><td>Velocity:</td><td><input type="text" name="velocity" value="" size="5" maxlength="2"/>&nbsp;meters/second</td></tr>
+                                                    <tr><td></td><td></td><td>GPS Make:</td><td><input type="text" name="gpsmake" value="" size="25"/></td></tr>
+                                                    <tr><td></td><td></td><td>GPS Model:</td><td><input type="text" name="gpsmodel" value="" size="25"/></td></tr>
+                                                    <tr><td>Provider:</td><td  align="right"><select name="dataProvider">
                                                             <option value="Linblad">Lindblad Expeditions</option>
                                                             <option value="Sea ID">Sea ID</option>
                                                         </select></td>
+                                                        <td align="right" colspan="2"><input type="file" name="file" required /></td>
                                                     </tr>
-                                                    <tr><td colspan="2"><input type="file" name="file" required /></td></tr>
-                                                    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                                                    <tr><td align="right" colspan="4"><input type="submit" value="Upload" /></td></tr>
+                                                    <tr><td colspan="4"><div id="output"></div></td></tr>
                                                 </form><br>
                                                 </p>
                                             </table>
                                         </div>
-                                        <div id="output"></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -173,39 +210,5 @@
         </div>
     </div>
 </div>
-<!--<script src="//iho.int/srv1/media/jui/js/jquery.min.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/jui/js/jquery-noconflict.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/jui/js/jquery-migrate.min.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/system/js/caption.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/system/js/mootools-core.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/system/js/core.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/system/js/mootools-more.js" type="text/javascript"></script>
-<script src="//iho.int/srv1/media/jui/js/bootstrap.min.js" type="text/javascript"></script> -->
-<script type="text/javascript" id="www-widgetapi-script" src="./ihocsb_files/www-widgetapi.js" async=""></script><script src="./ihocsb_files/player_api"></script><script async="" src="./ihocsb_files/analytics.js"></script><script src="./ihocsb_files/jquery-1.11.2.min.js" type="text/javascript"></script>
-<script src="./ihocsb_files/bootstrap.min.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-</script>
-<script type="text/javascript">
-    $("a[data-tab-destination]").on('click', function() {
-        var tab = $(this).attr('data-tab-destination');
-        $("#"+tab).click();
-    });
-</script>
-<script type="text/javascript">
-    var url = document.location.toString();
-if (url.match('#')) {
-    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
-} 
-
-// Change hash for page-reload
-$('.nav-tabs a').on('shown.bs.tab', function (e) {
-    window.location.hash = e.target.hash;
-})
-</script>
-<script id="_fed_an_ua_tag" type="text/javascript" src="./ihocsb_files/federated-analytics.js"></script>
 
 </body></html>

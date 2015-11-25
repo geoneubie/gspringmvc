@@ -183,3 +183,8 @@ a img.calendar {
 	cursor: pointer;
 	vertical-align: middle;
 }
+
+table#upload td {
+	height: 10px;
+    padding: 10px;
+}
