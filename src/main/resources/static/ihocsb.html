@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0033)http://www.ngdc.noaa.gov/iho/#csb -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +33,6 @@
     <!-- <script src="js/jquery-1.9.1.js"></script> -->
     <script type="text/javascript" src="js/uploadscript.js"></script>
     <script type="text/javascript" id="www-widgetapi-script" src="js/www-widgetapi.js" async=""></script>
-    <script src="ihocsb_files/player_api"></script>
     <script async="" src="js/analytics.js"></script>
     <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
@@ -40,15 +41,15 @@
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
         })
-        </script>
-            <script type="text/javascript">
-            $("a[data-tab-destination]").on('click', function() {
-                var tab = $(this).attr('data-tab-destination');
-                $("#"+tab).click();
-            });
-        </script>
-            <script type="text/javascript">
-            var url = document.location.toString();
+    </script>
+    <script type="text/javascript">
+        $("a[data-tab-destination]").on('click', function() {
+            var tab = $(this).attr('data-tab-destination');
+            $("#"+tab).click();
+        });
+    </script>
+    <script type="text/javascript">
+        var url = document.location.toString();
         if (url.match('#')) {
             $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
         }
@@ -58,7 +59,7 @@
             window.location.hash = e.target.hash;
         })
     </script>
-    <script id="_fed_an_ua_tag" type="text/javascript" src="./ihocsb_files/federated-analytics.js"></script>
+    <script id="_fed_an_ua_tag" type="text/javascript" src="js/federated-analytics.js"></script>
 
 </head>
 <body id="page_bg">
@@ -169,7 +170,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">IHO Member States</h4>
             </div>
-            <div class="modal-body"> <a target="_blank" href="http://iho.int/srv1/index.php?option=com_wrapper&view=wrapper&Itemid=452&lang=en" id="anch_44"><img src="./ihocsb_files/member_states_overview1.gif" alt="IHO Member States Map" class="img-responsive" height="" width=""></a>
+            <div class="modal-body"> <a target="_blank" href="http://iho.int/srv1/index.php?option=com_wrapper&view=wrapper&Itemid=452&lang=en" id="anch_44"><img src="images/member_states_overview1.gif" alt="IHO Member States Map" class="img-responsive" height="" width=""></a>
             	<p>Source: <a target="_blank" href="http://iho.int/srv1/index.php?option=com_wrapper&view=wrapper&Itemid=452&lang=en" id="anch_45">IHO Member States Information</a></p>
             </div>
             <div class="modal-footer">
@@ -185,7 +186,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="soundingsEx">Nautical Charts: Example</h4>
             </div>
-            <div class="modal-body"> <a target="_blank" href="http://maps.ngdc.noaa.gov/viewers/bathymetry/" id="anch_46"><img src="./ihocsb_files/soundings.png" class="img-responsive" style="border:thin solid #ccc;margin-bottom:10px;" alt="Single-Beam (Trackline) Bathymetric Surveys image"></a>
+            <div class="modal-body"> <a target="_blank" href="http://maps.ngdc.noaa.gov/viewers/bathymetry/" id="anch_46"><img src="images/soundings.png" class="img-responsive" style="border:thin solid #ccc;margin-bottom:10px;" alt="Single-Beam (Trackline) Bathymetric Surveys image"></a>
                 <p>Source: <a target="_blank" href="http://maps.ngdc.noaa.gov/viewers/bathymetry/" id="anch_47">Single-Beam (Trackline) Bathymetric Surveys</a></p>
             </div>
             <div class="modal-footer">
@@ -201,7 +202,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="bathyEx">Bathymetric Mapping Project: Example</h4>
             </div>
-            <div class="modal-body"> <a target="_blank" href="http://ibcao.org/" id="anch_48"><img src="./ihocsb_files/mapping.jpg" class="img-responsive" style="border:thin solid #ccc;margin-bottom:10px;" alt="International Bathymetric Chart of the Arctic Ocean (IBCAO) image"></a>
+            <div class="modal-body"> <a target="_blank" href="http://ibcao.org/" id="anch_48"><img src="images/mapping.jpg" class="img-responsive" style="border:thin solid #ccc;margin-bottom:10px;" alt="International Bathymetric Chart of the Arctic Ocean (IBCAO) image"></a>
                 <p>Source: <a target="_blank" href="http://ibcao.org/" id="anch_49">International Bathymetric Chart of the Arctic Ocean (IBCAO)</a></p>
             </div>
             <div class="modal-footer">
