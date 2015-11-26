@@ -1,4 +1,7 @@
 package dsmodelinput
+
+import appconfig.UserSubmissionConfig
+
 import static org.junit.Assert.*
 
 import org.junit.Test

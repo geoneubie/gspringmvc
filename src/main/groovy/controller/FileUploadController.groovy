@@ -1,9 +1,14 @@
 package controller
 
+import dsmodelinput.IUserSubmission
+
 /**
  * Created by dneufeld on 9/24/15.
  */
 
+import dsmodelinput.UserSubmission
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -14,23 +19,31 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.Part
 
 @Controller
+@ComponentScan( basePackageClasses=[ IUserSubmission.class ] )
 @RequestMapping (value = "/fileupload") //define to level endpoint
 public class FileUploadController {
 
+    @Autowired
+    private IUserSubmission us
+
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){
-        if (file.size > 0) {
-            def filename = "csb_" + UUID.randomUUID() + ".xyz"
-            try {
-                println "${csbMetadataInput} : ${filename}"
-                file.write "/tmp/${filename}"
-                return "You successfully uploaded ${filename}!!"
-            } catch (Exception e) {
-                return "You failed to upload ${filename}" + e.getMessage
-            }
-        } else {
-            return "You failed to upload ${filename} because the file was empty."
-        }
+        def userEntries = [:]
+        userEntries << [ JSON : csbMetadataInput ]
+        us.transform( userEntries )
+        return "You got this far!"
+//        if (file.size > 0) {
+//            def filename = "csb_" + UUID.randomUUID() + ".xyz"
+//            try {
+//                println "${csbMetadataInput} : ${filename}"
+//                file.write "/tmp/${filename}"
+//                return "You successfully uploaded ${filename}!!"
+//            } catch (Exception e) {
+//                return "You failed to upload ${filename}" + e.getMessage
+//            }
+//        } else {
+//            return "You failed to upload ${filename} because the file was empty."
+//        }
     }
 
 }

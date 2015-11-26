@@ -1,11 +1,13 @@
-package dsmodelinput
+package appconfig
 
+import dsmodelinput.IUserSubmission
+import dsmodelinput.UserSubmission
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-@ComponentScan
+@ComponentScan( basePackageClasses=[ IUserSubmission.class ] )
 public class UserSubmissionConfig {
 
     @Bean
