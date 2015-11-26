@@ -31,6 +31,11 @@ dependencies {
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // end::actuator[]
+    // spring data rest
+    compile("org.springframework.data:spring-data-rest-webmvc:2.4.1.RELEASE")
+    // jts
+    compile("com.vividsolutions:jts:1.13")
+
     // tag::tests[]
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
