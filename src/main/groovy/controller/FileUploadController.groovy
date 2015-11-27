@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.Part
 
 @Controller
-@ComponentScan( basePackageClasses=[ IUserSubmission.class ] )
+@ComponentScan( basePackageClasses=[ dsmodelinput.IUserSubmission ] )
 @RequestMapping (value = "/fileupload") //define to level endpoint
 
 public class FileUploadController {
 
     @Autowired
-    private IUserSubmission us
+    private UserSubmission us
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){
@@ -34,7 +34,7 @@ public class FileUploadController {
         userEntries << [ JSON : csbMetadataInput ]
         userEntries << [ FILE : file]
         def msg = us.transform( userEntries )
-        return msg
+        return msg.TRANSFORMED
 
     }
 

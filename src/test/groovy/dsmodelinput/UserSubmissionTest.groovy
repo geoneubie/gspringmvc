@@ -26,7 +26,7 @@ public class UserSubmissionTest {
     public void getStagingDirsCount() {
 
         def v = us.stagingDirsCount
-        assert v == 1
+        assert v >= 1
 
     }
 
