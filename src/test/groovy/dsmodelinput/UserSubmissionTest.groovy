@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=UserSubmissionConfig.class)
-
 public class UserSubmissionTest {
+
     @Autowired
     private IUserSubmission us
 
@@ -24,15 +24,22 @@ public class UserSubmissionTest {
 
     @Test
     public void getStagingDirsCount() {
+
         def v = us.stagingDirsCount
         assert v == 1
+
     }
 
     @Test
-    public void transform() {
-        def hm = us.transform()
+    public void transformSad() {
+
+        def userEntries = [:]
+        userEntries << [ FILE : null ]
+        userEntries << [ JSON : '{ foo: "bar" }' ]
+        def hm = us.transform( userEntries )
         def v = hm.TRANSFORMED
-        assert v == "Playing Sgt. Pepper's Lonely Hearts Club Band" +
-                " by The Beatles"
+        assert v == "You failed to upload because the file was missing or empty."
+
     }
+
 }

@@ -21,6 +21,7 @@ import javax.servlet.http.Part
 @Controller
 @ComponentScan( basePackageClasses=[ IUserSubmission.class ] )
 @RequestMapping (value = "/fileupload") //define to level endpoint
+
 public class FileUploadController {
 
     @Autowired
@@ -28,22 +29,13 @@ public class FileUploadController {
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){
+
         def userEntries = [:]
         userEntries << [ JSON : csbMetadataInput ]
-        us.transform( userEntries )
-        return "You got this far!"
-//        if (file.size > 0) {
-//            def filename = "csb_" + UUID.randomUUID() + ".xyz"
-//            try {
-//                println "${csbMetadataInput} : ${filename}"
-//                file.write "/tmp/${filename}"
-//                return "You successfully uploaded ${filename}!!"
-//            } catch (Exception e) {
-//                return "You failed to upload ${filename}" + e.getMessage
-//            }
-//        } else {
-//            return "You failed to upload ${filename} because the file was empty."
-//        }
+        userEntries << [ FILE : file]
+        def msg = us.transform( userEntries )
+        return msg
+
     }
 
 }
