@@ -11,8 +11,6 @@ public class Application {
     public static void main(String[] args) {
 
         def ctx = SpringApplication.run(Application.class, args)
-        ConfigurableEnvironment env = (ConfigurableEnvironment) ctx.getEnvironment();
-        env.setDefaultProfiles("development");
 
     }
 

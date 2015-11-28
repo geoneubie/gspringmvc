@@ -1,5 +1,6 @@
 package dsmodelinput
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 /**
@@ -9,17 +10,10 @@ import org.springframework.stereotype.Component
 class Staging {
 
     protected def hmStagingDirs = [:]
-    protected String env
 
     public Staging() {
         init()
         createDirs()
-    }
-
-    void setEnvironment(String env) {
-
-        this.env = env
-
     }
 
     Map getMap() {

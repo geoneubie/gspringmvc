@@ -48,7 +48,15 @@ task wrapper(type: Wrapper) {
 
 bootRun {
     if ( project.hasProperty('jvmArgs') ) {
-        jvmArgs = (project.jvmArgs.split("\\s+") as List)
-
+        def argsList = (project.jvmArgs.split("\\s+") as List<String>)
+        boolean profileSet = false
+        argsList.each { arg ->
+            println arg.indexOf("-Dspring.profiles.active=")
+            if (arg.indexOf("-Dspring.profiles.active=")>=0) { profileSet = true }
+        }
+        if (!profileSet) { argsList.add("-Dspring.profiles.active=dev") }
+        jvmArgs = argsList
+    } else {
+        jvmArgs = ["-Dspring.profiles.active=dev"]
     }
 }
