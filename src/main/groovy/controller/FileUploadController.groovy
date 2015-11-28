@@ -1,12 +1,11 @@
 package controller
 
+import appconfig.AppTestConfig
 import dsmodelinput.IUserSubmission
 
 /**
  * Created by dneufeld on 9/24/15.
  */
-
-import dsmodelinput.UserSubmission
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
@@ -19,13 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.Part
 
 @Controller
-@ComponentScan( basePackageClasses=[ dsmodelinput.IUserSubmission ] )
+@ComponentScan( basePackageClasses=[ AppTestConfig ] )
 @RequestMapping (value = "/fileupload") //define to level endpoint
 
 public class FileUploadController {
 
     @Autowired
-    private UserSubmission us
+    private IUserSubmission us
+
+    public void init() {
+        println "Init called!"
+    }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){

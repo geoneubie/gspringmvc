@@ -1,6 +1,6 @@
 package dsmodelinput
 
-import appconfig.UserSubmissionConfig
+import appconfig.AppTestConfig
 
 import static org.junit.Assert.*
 
@@ -11,11 +11,14 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=UserSubmissionConfig.class)
+@ContextConfiguration(classes=AppTestConfig.class)
 public class UserSubmissionTest {
 
     @Autowired
     private IUserSubmission us
+
+    @Autowired
+    private Staging stagingDirs
 
     @Test
     public void usShouldNotBeNull() {
@@ -25,8 +28,8 @@ public class UserSubmissionTest {
     @Test
     public void getStagingDirsCount() {
 
-        def v = us.stagingDirsCount
-        assert v >= 1
+        def v = stagingDirs
+        assert v.map.size() >= 1
 
     }
 

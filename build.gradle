@@ -45,3 +45,10 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
+
+bootRun {
+    if ( project.hasProperty('jvmArgs') ) {
+        jvmArgs = (project.jvmArgs.split("\\s+") as List)
+
+    }
+}

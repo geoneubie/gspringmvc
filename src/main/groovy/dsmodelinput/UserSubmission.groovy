@@ -1,6 +1,6 @@
 package dsmodelinput
 
-import org.apache.catalina.User
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 import javax.servlet.http.Part
@@ -8,51 +8,27 @@ import javax.servlet.http.Part
 @Component
 public class UserSubmission implements IUserSubmission {
 
-    private hmStagingDirs = [:]
+    @Autowired
+    private Staging stagingDirs
 
-    public UserSubmission() {
-        init()
-    }
-
-    private void init() {
-
-        // Read from values from config server or properties file
-        this.hmStagingDirs << [ CSBFILES : "/tmp/csb" ]
-
-        // Create directories if they don't already exist
-        hmStagingDirs.each { key, value ->
-            def file = new File("${value}")
-            file.exists()?:file.mkdirs()
-        }
-
-    }
-
-    def getStagingDirs() {
-
-        return this.hmStagingDirs
-
-    }
-
-    int getStagingDirsCount() {
-
-        return hmStagingDirs.size()
-
+    public UserSubmission(Staging stagingDirs) {
+        this.stagingDirs = stagingDirs
     }
 
     Map transform( Map userEntries ) {
 
         def hmMsg = [ : ]
+        def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
         Part file = userEntries.FILE
-        println hmStagingDirs.size()
 
         try {
 
             if ( file != null && file.size > 0 ) {
 
                 def filename = "csb_" + UUID.randomUUID() + ".xyz"
-                println "${csbMetadataInput} : ${hmStagingDirs.CSBFILES}/${filename}"
-                file.write "${hmStagingDirs.CSBFILES}/${filename}"
+                println "${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
+                file.write "${mapStagingDirs.CSBFILES}/${filename}"
                 hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
 
             } else {
