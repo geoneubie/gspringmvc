@@ -1,7 +1,7 @@
-package controller
+package csb.controller
 
-import appconfig.AppTestConfig
-import dsmodelinput.IUserSubmission
+import csb.config.AppTestConfig
+import csb.dsmodelinput.IUserSubmission
 
 /**
  * Created by dneufeld on 9/24/15.
@@ -18,17 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.Part
 
 @Controller
-@ComponentScan( basePackageClasses=[ AppTestConfig ] )
+@ComponentScan( basePackages=[ "csb.config" ] )
 @RequestMapping (value = "/fileupload") //define to level endpoint
-
 public class FileUploadController {
 
     @Autowired
     private IUserSubmission us
-
-    public void init() {
-        println "Init called!"
-    }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){

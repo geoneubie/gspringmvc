@@ -1,4 +1,4 @@
-package dsmodelinput
+package csb.dsmodelinput
 
 /**
  * Created by dneufeld on 11/24/15.

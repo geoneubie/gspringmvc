@@ -1,6 +1,6 @@
-package dsmodelinput
+package csb.dsmodelinput
 
-import appconfig.AppTestConfig
+import csb.config.AppTestConfig
 
 import static org.junit.Assert.*
 

@@ -1,11 +1,6 @@
-package appconfig
+package csb.config
 
-import dsmodelinput.IUserSubmission
-import dsmodelinput.Staging
-import dsmodelinput.StagingDevelopment
-import dsmodelinput.StagingTest
-import dsmodelinput.UserSubmission
-
+import csb.dsmodelinput.*
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,21 +8,25 @@ import org.springframework.context.annotation.Profile
 
 @Configuration
 @EnableAutoConfiguration
-@Profile("test")
-public class AppTestConfig {
+@Profile("dev")
+
+public class AppDevConfig {
 
     @Bean
     public Staging staging() {
 
-        Staging staging = new StagingTest()
+        Staging staging = new StagingDevelopment()
         return staging
 
     }
 
+
     @Bean
     public IUserSubmission us() {
-
-        return new UserSubmission(staging())
+        //UserSubmission us = new UserSubmission(staging(), "bar")
+        UserSubmission us = new UserSubmission(staging())
+        us.setFoo("bar")
+        return us
 
     }
 

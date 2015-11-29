@@ -1,4 +1,4 @@
-package dsmodelinput
+package csb.dsmodelinput
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -11,12 +11,18 @@ public class UserSubmission implements IUserSubmission {
     @Autowired
     private Staging stagingDirs
 
+    protected String foo
+
+    public void setFoo(String bar) {
+        foo = bar
+    }
+
     public UserSubmission(Staging stagingDirs) {
         this.stagingDirs = stagingDirs
     }
 
     Map transform( Map userEntries ) {
-
+        println "foo=${foo}"
         def hmMsg = [ : ]
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
