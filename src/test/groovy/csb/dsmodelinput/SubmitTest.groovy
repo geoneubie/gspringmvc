@@ -1,7 +1,6 @@
 package csb.dsmodelinput
 
-import csb.config.AppDevConfig
-import csb.config.AppTestConfig
+import csb.config.AppConfig
 import csb.service.ISubmitService
 import org.springframework.context.annotation.ComponentScan
 
@@ -14,9 +13,9 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=AppDevConfig.class)
+@ContextConfiguration(classes=AppConfig.class)
 @ComponentScan( basePackages=[ "csb.dsmodelinput","csb.config" ] )
-public class UserSubmissionTest {
+public class SubmitTest {
 
     @Autowired
     private ISubmitService ss

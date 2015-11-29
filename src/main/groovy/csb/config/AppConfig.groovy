@@ -3,20 +3,28 @@ package csb.config
 import csb.dsmodelinput.*
 import csb.service.ISubmitService
 import csb.service.SubmitService
-
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
+import org.springframework.context.annotation.PropertySource
+import org.springframework.core.env.Environment
 
 @Configuration
 @EnableAutoConfiguration
-@Profile("dev")
+@PropertySource("classpath:/application.properties")
+public class AppConfig {
 
-public class AppDevConfig {
+    @Autowired
+    Environment env;
 
     @Bean
     public Staging staging() {
+        // get active profile
+        String activeProfile = System.getProperty("spring.profiles.active");
+        String stagingDir = env.getProperty("${activeProfile}.staging.dir")
+        println "activeProfile=${activeProfile}:${stagingDir}"
 
         Staging staging = new StagingDevelopment()
         return staging
