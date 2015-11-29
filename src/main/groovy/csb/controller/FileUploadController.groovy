@@ -1,7 +1,6 @@
 package csb.controller
 
-import csb.config.AppTestConfig
-import csb.dsmodelinput.IUserSubmission
+import csb.service.ISubmitService
 
 /**
  * Created by dneufeld on 9/24/15.
@@ -23,7 +22,7 @@ import javax.servlet.http.Part
 public class FileUploadController {
 
     @Autowired
-    private IUserSubmission us
+    private ISubmitService us
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){

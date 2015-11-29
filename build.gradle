@@ -46,6 +46,21 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
 
+test {
+    if ( project.hasProperty('jvmArgs') ) {
+        def argsList = (project.jvmArgs.split("\\s+") as List<String>)
+        boolean profileSet = false
+        argsList.each { arg ->
+            println arg.indexOf("-Dspring.profiles.active=")
+            if (arg.indexOf("-Dspring.profiles.active=")>=0) { profileSet = true }
+        }
+        if (!profileSet) { argsList.add("-Dspring.profiles.active=dev") }
+        jvmArgs = argsList
+    } else {
+        jvmArgs = ["-Dspring.profiles.active=dev"]
+    }
+}
+
 bootRun {
     if ( project.hasProperty('jvmArgs') ) {
         def argsList = (project.jvmArgs.split("\\s+") as List<String>)

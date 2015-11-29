@@ -1,7 +1,9 @@
 package csb.dsmodelinput
 
+import csb.config.AppDevConfig
 import csb.config.AppTestConfig
-import csb.service.IUserSubmission
+import csb.service.ISubmitService
+import org.springframework.context.annotation.ComponentScan
 
 import static org.junit.Assert.*
 
@@ -12,18 +14,19 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=AppTestConfig.class)
-public class StagingDirsTest {
+@ContextConfiguration(classes=AppDevConfig.class)
+@ComponentScan( basePackages=[ "csb.dsmodelinput","csb.config" ] )
+public class UserSubmissionTest {
 
     @Autowired
-    private IUserSubmission us
+    private ISubmitService ss
 
     @Autowired
     private Staging stagingDirs
 
     @Test
     public void usShouldNotBeNull() {
-        assertNotNull(us)
+        assertNotNull(ss)
     }
 
     @Test
@@ -40,7 +43,7 @@ public class StagingDirsTest {
         def userEntries = [:]
         userEntries << [ FILE : null ]
         userEntries << [ JSON : '{ foo: "bar" }' ]
-        def hm = us.transform( userEntries )
+        def hm = ss.transform( userEntries )
         def v = hm.TRANSFORMED
         assert v == "You failed to upload because the file was missing or empty."
 

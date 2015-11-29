@@ -15,6 +15,8 @@ class Staging {
         createDirs()
     }
 
+    public void init() {}
+
     Map getMap() {
 
         return this.hmStagingDirs
@@ -30,7 +32,5 @@ class Staging {
         }
 
     }
-
-    public void init() {}
 
 }

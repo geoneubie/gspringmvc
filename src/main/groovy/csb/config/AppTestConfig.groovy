@@ -1,9 +1,9 @@
 package csb.config
 
-import csb.dsmodelinput.IUserSubmission
+import csb.service.ISubmitService
 import csb.dsmodelinput.Staging
 import csb.dsmodelinput.StagingTest
-import csb.dsmodelinput.UserSubmission
+import csb.service.SubmitService
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
@@ -24,10 +24,13 @@ public class AppTestConfig {
     }
 
     @Bean
-    public IUserSubmission us() {
+    public ISubmitService us() {
 
-        return new UserSubmission(staging())
+        SubmitService ss = new SubmitService(staging())
+        ss.setFoo("bar")
+        return ss
 
     }
+
 
 }

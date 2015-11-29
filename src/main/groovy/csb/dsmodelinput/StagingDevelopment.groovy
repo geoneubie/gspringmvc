@@ -1,9 +1,11 @@
 package csb.dsmodelinput
 
+import org.springframework.stereotype.Component
+
 /**
  * Created by dneufeld on 11/27/15.
  */
-
+@Component
 class StagingDevelopment extends Staging {
 
     @Override

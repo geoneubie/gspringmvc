@@ -2,11 +2,13 @@ package csb.service
 
 import csb.dsmodelinput.Staging
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
 import javax.servlet.http.Part
 
-@Service
+@Component
 public class SubmitService implements ISubmitService {
 
     @Autowired
