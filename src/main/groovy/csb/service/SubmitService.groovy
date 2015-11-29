@@ -1,12 +1,13 @@
-package csb.dsmodelinput
+package csb.service
 
+import csb.dsmodelinput.Staging
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 import javax.servlet.http.Part
 
-@Component
-public class UserSubmission implements IUserSubmission {
+@Service
+public class SubmitService implements ISubmitService {
 
     @Autowired
     private Staging stagingDirs
@@ -17,7 +18,7 @@ public class UserSubmission implements IUserSubmission {
         foo = bar
     }
 
-    public UserSubmission(Staging stagingDirs) {
+    public SubmitService(Staging stagingDirs) {
         this.stagingDirs = stagingDirs
     }
 

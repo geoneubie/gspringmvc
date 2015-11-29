@@ -1,6 +1,7 @@
 package csb.dsmodelinput
 
 import csb.config.AppTestConfig
+import csb.service.IUserSubmission
 
 import static org.junit.Assert.*
 
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppTestConfig.class)
-public class UserSubmissionTest {
+public class StagingDirsTest {
 
     @Autowired
     private IUserSubmission us
