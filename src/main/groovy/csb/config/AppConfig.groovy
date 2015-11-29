@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Profile
 import org.springframework.context.annotation.PropertySource
 import org.springframework.core.env.Environment
 
@@ -21,12 +20,15 @@ public class AppConfig {
 
     @Bean
     public Staging staging() {
-        // get active profile
-        String activeProfile = System.getProperty("spring.profiles.active");
-        String stagingDir = env.getProperty("${activeProfile}.staging.dir")
-        println "activeProfile=${activeProfile}:${stagingDir}"
 
-        Staging staging = new StagingDevelopment()
+        // get active profile
+        String activeProfile = System.getProperty("spring.profiles.active")
+        String stagingDirKey = env.getProperty("${activeProfile}.staging.dir.key")
+        String stagingDirVal = env.getProperty("${activeProfile}.staging.dir.value")
+        println "activeProfile=${activeProfile}:${stagingDirKey}"
+
+        Staging staging = new Staging()
+        staging.setStagingDirs( stagingDirKey, stagingDirVal )
         return staging
 
     }
@@ -36,7 +38,6 @@ public class AppConfig {
     public ISubmitService us() {
 
         SubmitService ss = new SubmitService(staging())
-        ss.setFoo("bar")
         return ss
 
     }

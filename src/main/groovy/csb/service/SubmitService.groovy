@@ -14,18 +14,12 @@ public class SubmitService implements ISubmitService {
     @Autowired
     private Staging stagingDirs
 
-    protected String foo
-
-    public void setFoo(String bar) {
-        foo = bar
-    }
-
     public SubmitService(Staging stagingDirs) {
         this.stagingDirs = stagingDirs
     }
 
     Map transform( Map userEntries ) {
-        println "foo=${foo}"
+
         def hmMsg = [ : ]
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON

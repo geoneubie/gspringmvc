@@ -33,6 +33,7 @@ public class SubmitTest {
 
         def v = stagingDirs
         assert v.map.size() >= 1
+        println v.hmStagingDirs.CSBFILES
 
     }
 

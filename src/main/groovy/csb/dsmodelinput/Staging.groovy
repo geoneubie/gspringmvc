@@ -11,11 +11,16 @@ class Staging {
     protected def hmStagingDirs = [:]
 
     public Staging() {
-        init()
         createDirs()
     }
 
-    public void init() {}
+    //Only handles one value right now
+    public void setStagingDirs(String key, String value) {
+
+        // Read from values from config server or properties file
+        this.hmStagingDirs.put( key, value )
+
+    }
 
     Map getMap() {
 
