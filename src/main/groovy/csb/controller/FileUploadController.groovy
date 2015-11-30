@@ -23,7 +23,7 @@ import javax.servlet.http.Part
 @Controller
 @ComponentScan( basePackages=[ "csb.config" ] )
 @RequestMapping ( value = "/fileupload" ) //toplevel controller endpoint
-public class FileUploadController {
+class FileUploadController {
 
     private static final Logger logger =
             LoggerFactory.getLogger( FileUploadController.class )
@@ -39,6 +39,7 @@ public class FileUploadController {
         def userEntries = [:]
         userEntries << [ JSON : csbMetadataInput ]
         userEntries << [ FILE : file]
+        ss.getName()
         def msg = ss.transform( userEntries )
         return msg.TRANSFORMED
 

@@ -3,8 +3,8 @@ package csb.service
 import csb.dsmodelinput.Staging
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
@@ -23,6 +23,10 @@ public class SubmitService implements ISubmitService {
         this.stagingDirs = stagingDirs
     }
 
+    public void getName() {
+        logger.debug "Local log statement - SubmitService.getName() called."
+    }
+
     Map transform( Map userEntries ) {
 
         def hmMsg = [ : ]
@@ -35,7 +39,7 @@ public class SubmitService implements ISubmitService {
             if ( file != null && file.size > 0 ) {
 
                 def filename = "csb_${UUID.randomUUID()}.xyz"
-                logger.debug "${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
+                logger.debug "Local log statement - ${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
                 file.write "${mapStagingDirs.CSBFILES}/${filename}"
                 hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
 

@@ -1,21 +1,22 @@
 package csb.config
 
-
+import csb.aspect.TransformLogger
 import csb.dsmodelinput.*
 import csb.service.ISubmitService
 import csb.service.SubmitService
+
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.context.annotation.PropertySource
-import org.springframework.core.env.Environment
 
 @Configuration
 @EnableAutoConfiguration
-@PropertySource("classpath:/application.properties")
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     private static final Logger logger =
@@ -29,7 +30,7 @@ public class AppConfig {
         // get active profile
         String activeProfile = System.getProperty "spring.profiles.active"
         def config = new ConfigSlurper("${activeProfile}").parse(
-                new File('config/appConfig.groovy').toURI().toURL())
+                new File("config/appConfig.groovy").toURI().toURL())
 
         logger.debug "activeProfile=${activeProfile}"
 
@@ -48,4 +49,10 @@ public class AppConfig {
 
     }
 
+    @Bean
+    public TransformLogger tLogger() {
+
+        return new TransformLogger()
+
+    }
 }
