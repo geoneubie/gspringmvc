@@ -1,6 +1,8 @@
 package csb.service
 
 import csb.dsmodelinput.Staging
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Component
@@ -11,10 +13,13 @@ import javax.servlet.http.Part
 @Component
 public class SubmitService implements ISubmitService {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(SubmitService.class);
+
     @Autowired
     private Staging stagingDirs
 
-    public SubmitService(Staging stagingDirs) {
+    public SubmitService( Staging stagingDirs ) {
         this.stagingDirs = stagingDirs
     }
 
@@ -29,8 +34,8 @@ public class SubmitService implements ISubmitService {
 
             if ( file != null && file.size > 0 ) {
 
-                def filename = "csb_" + UUID.randomUUID() + ".xyz"
-                println "${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
+                def filename = "csb_${UUID.randomUUID()}.xyz"
+                logger.debug "${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
                 file.write "${mapStagingDirs.CSBFILES}/${filename}"
                 hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
 

@@ -18,21 +18,21 @@ import org.springframework.core.env.Environment
 @PropertySource("classpath:/application.properties")
 public class AppConfig {
     private static final Logger logger =
-            LoggerFactory.getLogger(AppConfig.class);
+            LoggerFactory.getLogger AppConfig.class
 
     @Autowired
     Environment env;
 
     @Bean
     public Staging staging() {
-        logger.debug("Staging bean construction...")
+        logger.debug "Staging bean construction..."
 
         // get active profile
-        String activeProfile = System.getProperty("spring.profiles.active")
-        String stagingDirKey = env.getProperty("${activeProfile}.staging.dir.key")
-        String stagingDirVal = env.getProperty("${activeProfile}.staging.dir.value")
+        String activeProfile = System.getProperty "spring.profiles.active"
+        String stagingDirKey = env.getProperty "${activeProfile}.staging.dir.key"
+        String stagingDirVal = env.getProperty "${activeProfile}.staging.dir.value"
 
-        //log.debug "activeProfile=${activeProfile}:${stagingDirKey}"
+        logger.debug "activeProfile=${activeProfile}:${stagingDirKey}"
 
         Staging staging = new Staging()
         staging.setStagingDirs( stagingDirKey, stagingDirVal )
@@ -42,9 +42,9 @@ public class AppConfig {
 
 
     @Bean
-    public ISubmitService us() {
+    public ISubmitService ss() {
 
-        SubmitService ss = new SubmitService(staging())
+        SubmitService ss = new SubmitService( staging() )
         return ss
 
     }
