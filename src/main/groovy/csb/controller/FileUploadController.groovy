@@ -1,10 +1,14 @@
 package csb.controller
 
-import csb.service.ISubmitService
-
 /**
  * Created by dneufeld on 9/24/15.
  */
+
+import csb.service.ISubmitService
+
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
@@ -21,11 +25,15 @@ import javax.servlet.http.Part
 @RequestMapping (value = "/fileupload") //define to level endpoint
 public class FileUploadController {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(FileUploadController.class);
+
     @Autowired
     private ISubmitService us
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){
+        logger.debug("Upload request made.")
 
         def userEntries = [:]
         userEntries << [ JSON : csbMetadataInput ]
