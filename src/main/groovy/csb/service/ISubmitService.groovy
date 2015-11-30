@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component
 @Component
 public interface ISubmitService {
 
+    void getName()
+
     Map transform( Map userEntries )
+
+
 
 }

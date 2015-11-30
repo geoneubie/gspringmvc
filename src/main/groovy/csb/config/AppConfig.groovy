@@ -44,7 +44,7 @@ public class AppConfig {
     @Bean
     public ISubmitService ss() {
 
-        SubmitService ss = new SubmitService( staging() )
+        ISubmitService ss = new SubmitService( staging() )
         return ss
 
     }
