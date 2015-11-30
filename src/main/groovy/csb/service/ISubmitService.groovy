@@ -1,11 +1,11 @@
 package csb.service
 
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 /**
  * Created by dneufeld on 11/24/15.
  */
-@Component
+@Service
 public interface ISubmitService {
 
     void getName()
