@@ -14,11 +14,10 @@ class Staging {
         createDirs()
     }
 
-    //Only handles one value right now
-    public void setStagingDirs(String key, String value) {
+    public void setStagingDirs( Map hmStagingDirs ) {
 
         // Read from values from config server or properties file
-        this.hmStagingDirs.put( key, value )
+        this.hmStagingDirs = hmStagingDirs
 
     }
 
@@ -32,7 +31,7 @@ class Staging {
 
         // Create directories if they don't already exist
         hmStagingDirs.each { key, value ->
-            def file = new File("${value}")
+            def file = new File( "${value}" )
             file.exists()?:file.mkdirs()
         }
 

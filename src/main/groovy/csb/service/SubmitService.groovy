@@ -45,7 +45,7 @@ public class SubmitService implements ISubmitService {
 
             }
 
-        } catch (Exception e) {
+        } catch ( Exception e ) {
 
             hmMsg << [ TRANSFORMED : "You failed to upload ${file.submittedFileName} + ${e.message}" ]
 

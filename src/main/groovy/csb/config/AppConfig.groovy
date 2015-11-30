@@ -17,25 +17,24 @@ import org.springframework.core.env.Environment
 @EnableAutoConfiguration
 @PropertySource("classpath:/application.properties")
 public class AppConfig {
+
     private static final Logger logger =
             LoggerFactory.getLogger AppConfig.class
 
-    @Autowired
-    Environment env;
-
     @Bean
     public Staging staging() {
+
         logger.debug "Staging bean construction..."
 
         // get active profile
         String activeProfile = System.getProperty "spring.profiles.active"
-        String stagingDirKey = env.getProperty "${activeProfile}.staging.dir.key"
-        String stagingDirVal = env.getProperty "${activeProfile}.staging.dir.value"
+        def config = new ConfigSlurper("${activeProfile}").parse(
+                new File('config/appConfig.groovy').toURI().toURL())
 
-        logger.debug "activeProfile=${activeProfile}:${stagingDirKey}"
+        logger.debug "activeProfile=${activeProfile}"
 
         Staging staging = new Staging()
-        staging.setStagingDirs( stagingDirKey, stagingDirVal )
+        staging.setStagingDirs( config.staging.dir.map )
         return staging
 
     }

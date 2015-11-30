@@ -83,6 +83,6 @@ bootRun {
         if (!profileSet) { argsList.add("-Dspring.profiles.active=dev") }
         jvmArgs = argsList
     } else {
-        jvmArgs = ["-Dspring.profiles.active=dev"]
+        jvmArgs = [ "-Dspring.profiles.active=dev" ]
     }
 }

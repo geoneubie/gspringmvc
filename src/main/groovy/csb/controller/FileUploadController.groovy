@@ -22,17 +22,18 @@ import javax.servlet.http.Part
 
 @Controller
 @ComponentScan( basePackages=[ "csb.config" ] )
-@RequestMapping (value = "/fileupload") //toplevel controller endpoint
+@RequestMapping ( value = "/fileupload" ) //toplevel controller endpoint
 public class FileUploadController {
 
     private static final Logger logger =
-            LoggerFactory.getLogger(FileUploadController.class);
+            LoggerFactory.getLogger( FileUploadController.class )
 
     @Autowired
     private ISubmitService ss
 
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("csbMetadataInput") String csbMetadataInput, @RequestPart("file") Part file){
+    @RequestMapping( value="/upload", method=RequestMethod.POST )
+    public @ResponseBody String handleFileUpload( @RequestParam("csbMetadataInput") String csbMetadataInput,
+                                                  @RequestPart("file") Part file ) {
         logger.debug "Upload request made."
 
         def userEntries = [:]
