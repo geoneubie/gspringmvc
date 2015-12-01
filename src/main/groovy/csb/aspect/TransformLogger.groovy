@@ -6,10 +6,12 @@ package csb.aspect
 
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
+import org.aspectj.lang.annotation.AfterThrowing
+
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Component
 
+import org.springframework.stereotype.Component
 
 @Aspect
 @Component
@@ -19,8 +21,18 @@ public class TransformLogger {
             LoggerFactory.getLogger( TransformLogger.class )
 
     @Before( "execution(* csb.service.ISubmitService.transform(..)) and args(userEntries)" )
-    public void startTransformLogging(Map userEntries) {
+    public void startTransformLogging( Map userEntries ) {
+
         logger.debug( "Begin transform with ${userEntries}");
+
     }
+
+    @AfterThrowing( pointcut = "execution(* csb.service.ISubmitService.transform(..))", throwing = "e" )
+    public void startTransformLogging(Throwable e) {
+
+        logger.error( "Caught exception: ${e.message}", e);
+
+    }
+
 }
 

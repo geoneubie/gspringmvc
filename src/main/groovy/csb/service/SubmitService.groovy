@@ -22,37 +22,27 @@ public class SubmitService implements ISubmitService {
         this.stagingDirs = stagingDirs
     }
 
-    Map transform( Map userEntries ) {
+    Map transform( Map userEntries ) throws Exception {
 
-        def hmMsg = [ : ]
+        //Assume error condition, change msg if code succeeds
+        def hmMsg = [:]
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
         Part file = userEntries.FILE
 
-        try {
+        if ( file != null && file.size > 0 ) {
 
-            if ( file != null && file.size > 0 ) {
+            def filename = "csb_${UUID.randomUUID()}.xyz"
+            file.write "${mapStagingDirs.CSBFILES}/${filename}"
+            hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
 
-                def filename = "csb_${UUID.randomUUID()}.xyz"
-                logger.debug "Local log statement - ${csbMetadataInput} : ${mapStagingDirs.CSBFILES}/${filename}"
-                file.write "${mapStagingDirs.CSBFILES}/${filename}"
-                hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
+        } else {
 
-            } else {
-
-                hmMsg << [ TRANSFORMED : "You failed to upload because the file was missing or empty." ]
-
-            }
-
-        } catch ( Exception e ) {
-
-            hmMsg << [ TRANSFORMED : "You failed to upload ${file.submittedFileName} + ${e.message}" ]
-
-        } finally {
-
-            return hmMsg
+            hmMsg << [ TRANSFORMED : "You failed to upload because the file was missing or empty." ]
 
         }
+
+        return hmMsg
 
     }
 

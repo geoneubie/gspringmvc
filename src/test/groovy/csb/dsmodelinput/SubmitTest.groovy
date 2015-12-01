@@ -49,4 +49,16 @@ public class SubmitTest {
 
     }
 
+    @Test
+    public void transformException() {
+
+        try {
+            def userEntries = null
+            def hm = ss.transform(userEntries)
+        } catch (Exception e) {
+            assert true
+        }
+
+    }
+
 }

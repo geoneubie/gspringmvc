@@ -37,11 +37,25 @@ class FileUploadController {
         logger.debug "Upload request made."
 
         def userEntries = [:]
-        userEntries << [ JSON : csbMetadataInput ]
-        userEntries << [ FILE : file]
-        ss.getName()
-        def msg = ss.transform( userEntries )
-        return msg.TRANSFORMED
+        String msg
+
+        try {
+
+            userEntries << [ JSON : csbMetadataInput ]
+            userEntries << [ FILE : file]
+            msg = (ss.transform( userEntries )).TRANSFORMED
+
+        } catch (Exception e) {
+
+            msg = "Unknown error trying to upload your file, please contact " +
+                    "the system administrator if the problem continues."
+            logger.error("handleFileUpload error", e)
+
+        } finally {
+
+            return msg
+
+        }
 
     }
 
