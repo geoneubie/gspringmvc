@@ -22,10 +22,6 @@ public class SubmitService implements ISubmitService {
         this.stagingDirs = stagingDirs
     }
 
-    public void getName() {
-        logger.debug "Local log statement - SubmitService.getName() called."
-    }
-
     Map transform( Map userEntries ) {
 
         def hmMsg = [ : ]

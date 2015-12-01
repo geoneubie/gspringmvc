@@ -18,14 +18,9 @@ public class TransformLogger {
     private static final Logger logger =
             LoggerFactory.getLogger( TransformLogger.class )
 
-    @Before( "execution(* csb.service.ISubmitService.getName(..))" )
-    public void startNameLogging() {
-        logger.debug( "Begin getName...");
-    }
-
-    @Before( "execution(* csb.service.ISubmitService.transform(..))" )
-    public void startTransformLogging() {
-        logger.debug( "Begin transform...");
+    @Before( "execution(* csb.service.ISubmitService.transform(..)) and args(userEntries)" )
+    public void startTransformLogging(Map userEntries) {
+        logger.debug( "Begin transform with ${userEntries}");
     }
 }
 
