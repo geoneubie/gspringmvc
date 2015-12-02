@@ -29,13 +29,17 @@ class SubmitService implements ISubmitService {
         def hmMsg = [:]
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
-        Part file = userEntries.FILE
+        Part uploadFile = userEntries.FILE
 
-        if ( file != null && file.size > 0 ) {
+        if ( uploadFile != null && uploadFile.size > 0 ) {
 
-            def filename = "csb_${UUID.randomUUID()}.xyz"
-            file.write "${mapStagingDirs.CSBFILES}/${filename}"
-            hmMsg << [ TRANSFORMED : "Your file ${file.submittedFileName} has been received!" ]
+            def baseFilename = "${mapStagingDirs.CSBFILES}/csb_${UUID.randomUUID()}"
+            uploadFile.write "${baseFilename}.xyz"
+
+            def metaFile = new File( "${baseFilename}.json" )
+            metaFile.write csbMetadataInput
+
+            hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
 
         } else {
 
@@ -56,7 +60,6 @@ class SubmitService implements ISubmitService {
         valid = (cmiMap.shipname!="")?true:false
         valid = (cmiMap.dataProvider!="" && valid)?true:false
 
-        println valid
         return valid
 
     }

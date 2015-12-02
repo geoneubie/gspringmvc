@@ -45,9 +45,11 @@ class FileUploadController {
         String msg
 
         if ( ss.validateJSON( csbMetadataInput ) == false ) {
+
             logger.debug("JSON not valid, return...")
             msg = "You must complete all required fields."
             return msg
+
         }
 
         try {
