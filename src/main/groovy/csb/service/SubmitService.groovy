@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 import javax.servlet.http.Part
 
 @Service
-public class SubmitService implements ISubmitService {
+class SubmitService implements ISubmitService {
 
     private static final Logger logger =
             LoggerFactory.getLogger(SubmitService.class);

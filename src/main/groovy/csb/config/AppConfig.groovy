@@ -16,7 +16,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy
 @Configuration
 @EnableAutoConfiguration
 @EnableAspectJAutoProxy
-public class AppConfig {
+class AppConfig {
 
     private static final Logger logger =
             LoggerFactory.getLogger AppConfig.class
@@ -33,8 +33,7 @@ public class AppConfig {
 
         logger.debug "activeProfile=${activeProfile}"
 
-        Staging staging = new Staging()
-        staging.setStagingDirs( config.staging.dir.map )
+        Staging staging = new Staging( config.staging.dir.map )
         return staging
 
     }

@@ -10,14 +10,10 @@ class Staging {
 
     protected def hmStagingDirs = [:]
 
-    public Staging() {
-        createDirs()
-    }
+    public Staging( Map hmStagingDirs ) {
 
-    public void setStagingDirs( Map hmStagingDirs ) {
-
-        // Read from values from config server or properties file
         this.hmStagingDirs = hmStagingDirs
+        createDirs()
 
     }
 

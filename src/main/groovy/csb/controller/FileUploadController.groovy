@@ -31,6 +31,11 @@ class FileUploadController {
     @Autowired
     private ISubmitService ss
 
+    @RequestMapping(value="/ping", method=RequestMethod.GET)
+    public @ResponseBody String ping() {
+        return "FileUploadController is alive."
+    }
+
     @RequestMapping( value="/upload", method=RequestMethod.POST )
     public @ResponseBody String handleFileUpload( @RequestParam("csbMetadataInput") String csbMetadataInput,
                                                   @RequestPart("file") Part file ) {

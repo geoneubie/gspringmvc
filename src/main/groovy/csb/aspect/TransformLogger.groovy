@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 
 @Aspect
 @Component
-public class TransformLogger {
+class TransformLogger {
 
     private static final Logger logger =
             LoggerFactory.getLogger( TransformLogger.class )

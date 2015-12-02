@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppConfig.class)
 @ComponentScan( basePackages=[ "csb.dsmodelinput", "csb.config", "csb.aspect" ] )
-public class SubmitTest {
+class SubmitTest {
 
     @Autowired
     private ISubmitService ss
