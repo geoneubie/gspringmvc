@@ -10,4 +10,5 @@ interface ISubmitService {
 
     Map transform( Map userEntries )
 
+    boolean validateJSON( String csbMetadataInput )
 }

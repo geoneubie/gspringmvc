@@ -2,7 +2,7 @@ package csb.dsmodelinput
 
 import csb.config.AppConfig
 import csb.service.ISubmitService
-
+import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
@@ -53,11 +53,35 @@ class SubmitTest {
     public void transformException() {
 
         try {
+
             def userEntries = null
             def hm = ss.transform(userEntries)
+
         } catch (Exception e) {
+
             assert true
+
         }
+
+    }
+
+    @Test
+    public void jsonValid() {
+
+        def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
+        def jsonSlurper = new JsonSlurper()
+        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
+        assert ss.validateJSON( csbMetadataInput ) == true
+
+    }
+
+    @Test
+    public void jsonNotValid() {
+
+        def csbMetadataInput = '{"shipname":"","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
+        def jsonSlurper = new JsonSlurper()
+        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
+        assert ss.validateJSON( csbMetadataInput ) == false
 
     }
 

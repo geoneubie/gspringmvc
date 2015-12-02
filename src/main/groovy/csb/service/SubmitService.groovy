@@ -1,6 +1,7 @@
 package csb.service
 
 import csb.dsmodelinput.Staging
+import groovy.json.JsonSlurper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -43,6 +44,20 @@ class SubmitService implements ISubmitService {
         }
 
         return hmMsg
+
+    }
+
+    boolean validateJSON( String csbMetadataInput ) {
+
+        boolean valid = false
+        def jsonSlurper = new JsonSlurper()
+        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
+
+        valid = (cmiMap.shipname!="")?true:false
+        valid = (cmiMap.dataProvider!="" && valid)?true:false
+
+        println valid
+        return valid
 
     }
 
