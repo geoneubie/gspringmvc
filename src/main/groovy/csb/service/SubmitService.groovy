@@ -30,11 +30,13 @@ class SubmitService implements ITransformService {
             def baseFilename = "${mapStagingDirs.CSBFILES}/csb_${UUID.randomUUID()}"
             uploadFile.write "${baseFilename}.xyz"
 
-            def metaFile = new File( "${baseFilename}.json" )
+            def metaFile = new File( "${baseFilename}_meta.json" )
             metaFile.write csbMetadataInput
 
+            // Processing data still needed for next transform
             hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
             hmMsg << [ BASEFILENM : "${baseFilename}" ]
+            hmMsg << [ JSON : csbMetadataInput ]
 
         } else {
 
@@ -46,11 +48,11 @@ class SubmitService implements ITransformService {
 
     }
 
-    boolean validate( Object csbMetadataInput ) {
+    boolean validate( String s ) {
 
         boolean valid = false
         def jsonSlurper = new JsonSlurper()
-        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
+        def cmiMap = jsonSlurper.parseText( s )
 
         valid = (cmiMap.shipname!="")?true:false
         valid = (cmiMap.dataProvider!="" && valid)?true:false

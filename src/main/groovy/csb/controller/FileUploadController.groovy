@@ -47,7 +47,7 @@ class FileUploadController {
         def userEntryMap = [:]
         String msg
 
-        if ( ss.validateJSON( csbMetadataInput ) == false ) {
+        if ( ss.validate( csbMetadataInput ) == false ) {
 
             logger.debug("JSON not valid, return...")
             msg = "You must complete all required fields."
@@ -61,7 +61,9 @@ class FileUploadController {
             userEntryMap << [ FILE : file]
             def resultMap = ss.transform( userEntryMap )
 
-            //gs.transform( resultMap )
+            // This should be asynchronous processing
+            gs.transform( resultMap )
+
             msg = resultMap.TRANSFORMED
         } catch (Exception e) {
 

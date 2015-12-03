@@ -2,6 +2,9 @@ package csb.service
 
 import org.springframework.stereotype.Service
 
+import java.lang.invoke.MethodHandleImpl
+
+
 /**
  * Created by dneufeld on 11/24/15.
  */
@@ -10,5 +13,5 @@ interface ITransformService {
 
     Map transform( Map userEntries )
 
-    boolean validate( Object content )
+    boolean validate( String s )
 }
