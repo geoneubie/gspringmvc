@@ -1,7 +1,7 @@
 package csb.dsmodelinput
 
 import csb.config.AppConfig
-import csb.service.ISubmitService
+import csb.service.ITransformService
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 class SubmitTest {
 
     @Autowired
-    private ISubmitService ss
+    private ITransformService ss
 
     @Autowired
     private Staging stagingDirs
@@ -71,7 +71,7 @@ class SubmitTest {
         def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
         def jsonSlurper = new JsonSlurper()
         def cmiMap = jsonSlurper.parseText( csbMetadataInput )
-        assert ss.validateJSON( csbMetadataInput ) == true
+        assert ss.validate( csbMetadataInput ) == true
 
     }
 
@@ -81,7 +81,7 @@ class SubmitTest {
         def csbMetadataInput = '{"shipname":"","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
         def jsonSlurper = new JsonSlurper()
         def cmiMap = jsonSlurper.parseText( csbMetadataInput )
-        assert ss.validateJSON( csbMetadataInput ) == false
+        assert ss.validate( csbMetadataInput ) == false
 
     }
 

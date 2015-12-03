@@ -4,7 +4,7 @@ package csb.controller
  * Created by dneufeld on 9/24/15.
  */
 
-import csb.service.ISubmitService
+import csb.service.ITransformService
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -29,7 +29,10 @@ class FileUploadController {
             LoggerFactory.getLogger( FileUploadController.class )
 
     @Autowired
-    private ISubmitService ss
+    private ITransformService ss
+
+    @Autowired
+    private ITransformService gs
 
     @RequestMapping(value="/ping", method=RequestMethod.GET)
     public @ResponseBody String ping() {
@@ -41,7 +44,7 @@ class FileUploadController {
                                                   @RequestPart("file") Part file ) {
         logger.debug "Upload request made."
 
-        def userEntries = [:]
+        def userEntryMap = [:]
         String msg
 
         if ( ss.validateJSON( csbMetadataInput ) == false ) {
@@ -54,10 +57,12 @@ class FileUploadController {
 
         try {
 
-            userEntries << [ JSON : csbMetadataInput ]
-            userEntries << [ FILE : file]
-            msg = (ss.transform( userEntries )).TRANSFORMED
+            userEntryMap << [ JSON : csbMetadataInput ]
+            userEntryMap << [ FILE : file]
+            def resultMap = ss.transform( userEntryMap )
 
+            //gs.transform( resultMap )
+            msg = resultMap.TRANSFORMED
         } catch (Exception e) {
 
             msg = "Unknown error trying to upload your file, please contact " +

@@ -20,14 +20,14 @@ class TransformLogger {
     private static final Logger logger =
             LoggerFactory.getLogger( TransformLogger.class )
 
-    @Before( "execution(* csb.service.ISubmitService.transform(..)) and args(userEntries)" )
+    @Before( "execution(* csb.service.ITransformService.transform(..)) and args(userEntries)" )
     public void startTransformLogging( Map userEntries ) {
 
         logger.debug( "Begin transform with ${userEntries}");
 
     }
 
-    @AfterThrowing( pointcut = "execution(* csb.service.ISubmitService.transform(..))", throwing = "e" )
+    @AfterThrowing( pointcut = "execution(* csb.service.ITransformService.transform(..))", throwing = "e" )
     public void startTransformLogging(Throwable e) {
 
         logger.error( "Caught exception: ${e.message}", e);

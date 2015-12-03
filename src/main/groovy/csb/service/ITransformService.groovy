@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service
  * Created by dneufeld on 11/24/15.
  */
 @Service
-interface ISubmitService {
+interface ITransformService {
 
     Map transform( Map userEntries )
 
-    boolean validateJSON( String csbMetadataInput )
+    boolean validate( Object content )
 }
