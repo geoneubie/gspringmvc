@@ -2,7 +2,7 @@ package csb.config
 
 import csb.aspect.TransformLogger
 import csb.dsmodelinput.*
-import csb.service.GeoJSONService
+import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
 
@@ -50,7 +50,7 @@ class AppConfig {
     @Bean
     public ITransformService gs() {
 
-        ITransformService gs = new GeoJSONService( staging() )
+        ITransformService gs = new GeoJsonService( staging() )
         return gs
 
     }

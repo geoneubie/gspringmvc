@@ -30,7 +30,7 @@ class TransformLogger {
     @AfterThrowing( pointcut = "execution(* csb.service.ITransformService.transform(..))", throwing = "e" )
     public void startTransformLogging(Throwable e) {
 
-        logger.error( "Caught exception: ${e.message}", e);
+        logger.error( "Caught exception: ${e.message}");
 
     }
 
