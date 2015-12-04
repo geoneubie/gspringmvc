@@ -99,7 +99,8 @@ class GeoJsonService implements ITransformService {
         def sb = new StringBuffer( )
         int i = 0
         new File( "${entries.BASEFILENM}.xyz" ).eachLine { line ->
-            if (i > 1 && i < 10000) {
+            //Assumes header
+            if ( i >= 1 ) {
                 tokens = line.tokenize( ',' )
                 lat = Double.parseDouble(tokens[0])
                 lon = Double.parseDouble(tokens[1])

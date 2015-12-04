@@ -2,7 +2,8 @@ package csb.service
 
 import csb.dsmodelinput.Staging
 import groovy.json.JsonSlurper
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -10,6 +11,9 @@ import javax.servlet.http.Part
 
 @Service
 class SubmitService implements ITransformService {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger( SubmitService.class )
 
     @Autowired
     private Staging stagingDirs
@@ -24,24 +28,31 @@ class SubmitService implements ITransformService {
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
         Part uploadFile = userEntries.FILE
+        boolean validFile = this.validateFile( uploadFile )
 
-        if ( uploadFile != null && uploadFile.size > 0 ) {
+        if ( validFile ) {
 
             def baseFilename = "${mapStagingDirs.CSBFILES}/csb_${UUID.randomUUID()}"
             uploadFile.write "${baseFilename}.xyz"
+            def storedFile = new File( "${baseFilename}.xyz" )
+            def validContent = this.validateContent( storedFile )
+            if ( validContent ) {
+                def metaFile = new File( "${baseFilename}_meta.json" )
+                metaFile.write csbMetadataInput
 
-            def metaFile = new File( "${baseFilename}_meta.json" )
-            metaFile.write csbMetadataInput
-
-            // Processing data still needed for next transform
-            hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
-            hmMsg << [ BASEFILENM : "${baseFilename}" ]
-            hmMsg << [ JSON : csbMetadataInput ]
+                // Processing data still needed for next transform
+                hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
+                hmMsg << [ BASEFILENM : "${baseFilename}" ]
+                hmMsg << [ JSON : csbMetadataInput ]
+            } else {
+                hmMsg << [ TRANSFORMED : "Your file content is invalid." ]
+                hmMsg << [ ERROR : "BAD CONTENT"]
+            }
 
         } else {
 
             hmMsg << [ TRANSFORMED : "You failed to upload because the file was missing or empty." ]
-
+            hmMsg << [ ERROR : "NO CONTENT"]
         }
 
         return hmMsg
@@ -61,5 +72,45 @@ class SubmitService implements ITransformService {
 
     }
 
+    boolean validateContent( File storedFile ) {
+        boolean valid = false
+        def br = storedFile.newReader()
+
+        try {
+            // Assume first line header
+            String line = br.readLine()
+            line = br.readLine()
+            def tokens = []
+            def pts = []
+
+            tokens = line.tokenize( ',' )
+            def lat = Double.parseDouble(tokens[0])
+            def lon = Double.parseDouble(tokens[1])
+            def z = Double.parseDouble(tokens[2])
+            valid = true
+
+        } catch (Exception e) {
+
+            valid = false
+            logger.debug( "Exception in validateContent ${e.message}" )
+
+        } finally {
+
+            return valid
+
+        }
+
+    }
+
+    boolean validateFile( Part uploadFile ) {
+
+        boolean valid = false
+        if ( uploadFile != null && uploadFile.size > 0 ) {
+            valid = true
+        }
+        return valid
+
+
+    }
 
 }
