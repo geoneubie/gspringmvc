@@ -81,13 +81,13 @@ class GeoJsonService implements ITransformService {
         def propJb = new JsonBuilder(  )
         metaProps << propJb {
             providerContactPoint {
-                hasEmail "explore@expeditions.com"
+                hasEmail ""
             }
             processorContactPoint {
-                hasEmail "explore@expeditions.com"
+                hasEmail ""
             }
             ownerContactPoint {
-                hasEmail "explore@expeditions.com"
+                hasEmail ""
             }
             depthUnits "meters"
             timeUnits "UTC"
