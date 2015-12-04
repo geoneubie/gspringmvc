@@ -35,7 +35,7 @@ class FileUploadController {
     private ITransformService gs
 
     @RequestMapping(value="/ping", method=RequestMethod.GET)
-    public @ResponseBody String ping() {
+    public @ResponseBody String ping() throws Exception {
         return "FileUploadController is alive."
     }
 
@@ -55,27 +55,14 @@ class FileUploadController {
 
         }
 
-        try {
+        userEntryMap << [ JSON : csbMetadataInput ]
+        userEntryMap << [ FILE : file]
+        def resultMap = ss.transform( userEntryMap )
 
-            userEntryMap << [ JSON : csbMetadataInput ]
-            userEntryMap << [ FILE : file]
-            def resultMap = ss.transform( userEntryMap )
+        // This should be asynchronous processing
+        gs.transform( resultMap )
 
-            // This should be asynchronous processing
-            gs.transform( resultMap )
-
-            msg = resultMap.TRANSFORMED
-        } catch (Exception e) {
-
-            msg = "Unknown error trying to upload your file, please contact " +
-                    "the system administrator if the problem continues."
-            logger.error("handleFileUpload error", e)
-
-        } finally {
-
-            return msg
-
-        }
+        msg = resultMap.TRANSFORMED
 
     }
 

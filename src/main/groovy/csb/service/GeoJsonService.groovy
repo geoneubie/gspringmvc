@@ -1,18 +1,13 @@
 package csb.service
 
-import csb.aspect.TransformLogger
 import csb.dsmodelinput.Staging
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class GeoJsonService implements ITransformService {
-    private static final Logger logger =
-            LoggerFactory.getLogger( TransformLogger.class )
 
     @Autowired
     private Staging stagingDirs
@@ -20,7 +15,6 @@ class GeoJsonService implements ITransformService {
     public GeoJsonService( Staging stagingDirs ) {
         this.stagingDirs = stagingDirs
     }
-
 
     // Need to handle "dataProvider" field
     Map transform( Map entries ) throws Exception {
