@@ -27,17 +27,24 @@ class SubmitService implements ITransformService {
         def csbMetadataInput = userEntries.JSON
         Part uploadFile = userEntries.FILE
         ValidationService<?> vs = new ValidationService<Part>( uploadFile )
+        // Check if file is empty
         boolean validFile = vs.validate()
 
         if ( validFile ) {
 
             def baseFilename = "${mapStagingDirs.CSBFILES}/csb_${UUID.randomUUID()}"
+            // Write incoming file to disk
             uploadFile.write "${baseFilename}.xyz"
+
+            // Crack the file to peek and content
             def storedFile = new File( "${baseFilename}.xyz" )
             vs = new ValidationService<File>( storedFile )
+            // Check if file is CSV with numeric values for lat, lon, and depth
             def validContent = vs.validate()
+
             if ( validContent ) {
                 def metaFile = new File( "${baseFilename}_meta.json" )
+                // Write incoming JSON to disk
                 metaFile.write csbMetadataInput
 
                 // Processing data still needed for next transform

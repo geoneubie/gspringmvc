@@ -1,5 +1,6 @@
 package csb.service
 
+import csb.dsmodelinput.DataProviders
 import csb.dsmodelinput.Staging
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -12,6 +13,9 @@ class GeoJsonService implements ITransformService {
     @Autowired
     private Staging stagingDirs
 
+    @Autowired
+    private DataProviders dps
+
     public GeoJsonService( Staging stagingDirs ) {
         this.stagingDirs = stagingDirs
     }
@@ -20,7 +24,7 @@ class GeoJsonService implements ITransformService {
     Map transform( Map entries ) throws Exception {
         def jsonSlurper = new JsonSlurper()
         def cmiMap = jsonSlurper.parseText( entries.JSON )
-
+        def dp = dps.getProvider( "${cmiMap.dataProvider}" )
         def metaJb =  new JsonBuilder()
         // Create the CSB GeoJSON metadata header
         def meta = metaJb {
@@ -75,13 +79,13 @@ class GeoJsonService implements ITransformService {
         def propJb = new JsonBuilder(  )
         metaProps << propJb {
             providerContactPoint {
-                hasEmail ""
+                hasEmail "${dp.providerEmail}"
             }
             processorContactPoint {
-                hasEmail ""
+                hasEmail "${dp.processorEmail}"
             }
             ownerContactPoint {
-                hasEmail ""
+                hasEmail "${dp.ownerEmail}"
             }
             depthUnits "meters"
             timeUnits "UTC"

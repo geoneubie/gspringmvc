@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class Staging {
 
-    protected def hmStagingDirs = [:]
+    def hmStagingDirs = [:]
 
     public Staging( Map hmStagingDirs ) {
 

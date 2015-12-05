@@ -22,6 +22,34 @@ class AppConfig {
     private static final Logger logger =
             LoggerFactory.getLogger AppConfig.class
 
+    private String activeProfile
+
+    public AppConfig() {
+
+        // Get active profile
+        this.activeProfile = System.getProperty "spring.profiles.active"
+        logger.debug "activeProfile=${activeProfile}"
+
+    }
+
+    @Bean
+    public DataProviders dps() {
+
+        logger.debug "DataProviders bean construction..."
+
+        def config = new ConfigSlurper("${activeProfile}").parse(
+                new File("config/appConfig.groovy").toURI().toURL())
+
+        DataProviders dps = new DataProviders()
+        def dpsConfigList = config.data.providers
+        dpsConfigList.each { p ->
+            dps.addProvider( "${p.name}", p)
+        }
+
+        return dps
+
+    }
+
     @Bean
     public Staging staging() {
 
@@ -31,9 +59,7 @@ class AppConfig {
         String activeProfile = System.getProperty "spring.profiles.active"
         def config = new ConfigSlurper("${activeProfile}").parse(
                 new File("config/appConfig.groovy").toURI().toURL())
-
-        logger.debug "activeProfile=${activeProfile}"
-
+        
         Staging staging = new Staging( config.staging.dir.map )
         return staging
 
