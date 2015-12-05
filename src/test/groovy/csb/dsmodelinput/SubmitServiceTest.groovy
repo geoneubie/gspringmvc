@@ -1,21 +1,19 @@
 package csb.dsmodelinput
-
 import csb.config.AppConfig
 import csb.service.ITransformService
-import groovy.json.JsonSlurper
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-import org.springframework.context.annotation.ComponentScan
-
-import static org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+
+import static org.junit.Assert.assertNotNull
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppConfig.class)
 @ComponentScan( basePackages=[ "csb.dsmodelinput", "csb.config", "csb.aspect" ] )
-class SubmitTest {
+class SubmitServiceTest {
 
     @Autowired
     private ITransformService ss
@@ -62,26 +60,6 @@ class SubmitTest {
             assert true
 
         }
-
-    }
-
-    @Test
-    public void jsonValid() {
-
-        def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
-        def jsonSlurper = new JsonSlurper()
-        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
-        assert ss.validate( csbMetadataInput ) == true
-
-    }
-
-    @Test
-    public void jsonNotValid() {
-
-        def csbMetadataInput = '{"shipname":"","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"Linblad"}'
-        def jsonSlurper = new JsonSlurper()
-        def cmiMap = jsonSlurper.parseText( csbMetadataInput )
-        assert ss.validate( csbMetadataInput ) == false
 
     }
 

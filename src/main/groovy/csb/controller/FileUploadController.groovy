@@ -1,22 +1,16 @@
 package csb.controller
+import csb.service.ITransformService
+import csb.service.ValidationService
 
 /**
  * Created by dneufeld on 9/24/15.
  */
-
-import csb.service.ITransformService
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RequestPart
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 import javax.servlet.http.Part
 
@@ -46,8 +40,8 @@ class FileUploadController {
 
         def userEntryMap = [:]
         String msg
-
-        if (ss.validate(csbMetadataInput) == false) {
+        ValidationService<String> vs = new ValidationService<String>( csbMetadataInput )
+        if (vs.validate() == false) {
 
             logger.debug("JSON not valid, return...")
             msg = "You must complete all required fields."

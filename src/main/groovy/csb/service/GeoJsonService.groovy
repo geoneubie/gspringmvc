@@ -135,6 +135,4 @@ class GeoJsonService implements ITransformService {
 
     }
 
-    boolean validate ( String s ) {}
-
 }

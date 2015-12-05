@@ -10,5 +10,4 @@ interface ITransformService {
 
     Map transform( Map userEntries )
 
-    boolean validate( String s )
 }
