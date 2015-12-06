@@ -23,11 +23,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers( "/fileupload/upload" )
+                .antMatchers( "/fileupload/**" )
                 .authenticated()
             .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage( "/login" )
                 .permitAll()
             .and()
                 .logout()

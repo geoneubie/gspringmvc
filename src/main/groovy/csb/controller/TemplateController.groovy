@@ -13,5 +13,5 @@ class TemplateController {
     String login(){
         return "login"
     }
-    
+
 }
