@@ -1,14 +1,12 @@
 package csb.config
-
 import csb.aspect.TransformLogger
-import csb.dsmodelinput.*
+import csb.dsmodelinput.DataProviders
+import csb.dsmodelinput.Staging
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -87,4 +85,5 @@ class AppConfig {
         return new TransformLogger()
 
     }
+
 }

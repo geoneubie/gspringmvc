@@ -14,7 +14,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'gspringmvc'
     version =  '0.1.0'
 }
 
@@ -32,15 +32,19 @@ configurations.all {
 
 dependencies {
     // Bridge logging from JCL to SLF4j
-    compile ( "org.slf4j:jcl-over-slf4j:1.7.12" )
-    compile ( "ch.qos.logback:logback-classic:1.1.3" )
+    compile ( "org.slf4j:jcl-over-slf4j" )
+    compile ( "ch.qos.logback:logback-classic" )
 
     // Groovy
-    compile("org.codehaus.groovy:groovy-all:2.4.4")
+    compile( "org.codehaus.groovy:groovy-all" )
 
     // Spring boot
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile( "org.springframework.boot:spring-boot-starter-web" )
+    compile( "org.springframework.boot:spring-boot-starter-actuator" )
+    compile( "org.springframework.boot:spring-boot-starter-thymeleaf" )
+
+    // Spring boot security
+    compile( "org.springframework.boot:spring-boot-starter-security" )
 
     // AspectJ
     compile( "org.aspectj:aspectjrt" )

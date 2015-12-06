@@ -1,15 +1,16 @@
 package csb.controller
+
 import csb.service.ITransformService
 import csb.service.ValidationService
-
-/**
- * Created by dneufeld on 9/24/15.
- */
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
+
+/**
+ * Created by dneufeld on 9/24/15.
+ */
 import org.springframework.web.bind.annotation.*
 
 import javax.servlet.http.Part
