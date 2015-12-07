@@ -44,10 +44,12 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage( "/login" )
                 .successHandler(authenticationSuccessHandler())
+                .failureUrl( "/login?error" )
                 .permitAll()
             .and()
                 .logout()
-                .permitAll();
+                .logoutUrl("/login?logout")
+                .permitAll()
     }
 
 }
