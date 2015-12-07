@@ -1,4 +1,5 @@
 package csb.controller
+
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -12,6 +13,11 @@ class TemplateController {
     @RequestMapping("/login")
     String login(){
         return "login"
+    }
+
+    @RequestMapping("/csblogin")
+    String csblogin(){
+        return "csblogin"
     }
 
 }

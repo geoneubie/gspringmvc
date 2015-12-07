@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Controller
+import org.springframework.security.access.annotation.Secured
 
 /**
  * Created by dneufeld on 9/24/15.
@@ -29,11 +30,13 @@ class FileUploadController {
     @Autowired
     private ITransformService gs
 
+    @Secured("USER")
     @RequestMapping(value="/ping", method=RequestMethod.GET)
     public @ResponseBody String ping() throws Exception {
         return "FileUploadController is alive."
     }
 
+    @Secured("USER")
     @RequestMapping( value="/upload", method=RequestMethod.POST )
     public @ResponseBody String handleFileUpload( @RequestParam("csbMetadataInput") String csbMetadataInput,
                                                   @RequestPart("file") Part file ) {
