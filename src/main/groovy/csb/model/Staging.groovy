@@ -1,4 +1,4 @@
-package csb.dsmodelinput
+package csb.model
 
 import org.springframework.stereotype.Component
 

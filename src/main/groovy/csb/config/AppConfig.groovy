@@ -1,7 +1,7 @@
 package csb.config
 import csb.aspect.TransformLogger
-import csb.dsmodelinput.DataProviders
-import csb.dsmodelinput.Staging
+import csb.model.DataProviders
+import csb.model.Staging
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
@@ -38,11 +38,7 @@ class AppConfig {
         def config = new ConfigSlurper("${activeProfile}").parse(
                 new File("config/appConfig.groovy").toURI().toURL())
 
-        DataProviders dps = new DataProviders()
-        def dpsConfigList = config.data.providers
-        dpsConfigList.each { p ->
-            dps.addProvider( "${p.name}", p)
-        }
+        DataProviders dps = new DataProviders( config.data.providers )
 
         return dps
 
@@ -74,7 +70,7 @@ class AppConfig {
     @Bean
     public ITransformService gs() {
 
-        ITransformService gs = new GeoJsonService( staging() )
+        ITransformService gs = new GeoJsonService( staging(), dps() )
         return gs
 
     }

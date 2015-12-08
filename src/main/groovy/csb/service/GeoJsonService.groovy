@@ -1,23 +1,30 @@
 package csb.service
 
-import csb.dsmodelinput.DataProviders
-import csb.dsmodelinput.Staging
+import csb.model.DataProviders
+import csb.model.Staging
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class GeoJsonService implements ITransformService {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger( GeoJsonService.class )
+
     @Autowired
     private Staging stagingDirs
 
-    @Autowired
     private DataProviders dps
 
-    public GeoJsonService( Staging stagingDirs ) {
+    public GeoJsonService( Staging stagingDirs, DataProviders dps ) {
         this.stagingDirs = stagingDirs
+        this.dps = dps
+
+        logger.debug( dps.getProvider("SEAID").providerEmail )
     }
 
     // Need to handle "dataProvider" field
@@ -25,6 +32,8 @@ class GeoJsonService implements ITransformService {
         def jsonSlurper = new JsonSlurper()
         def cmiMap = jsonSlurper.parseText( entries.JSON )
         def dp = dps.getProvider( "${cmiMap.dataProvider}" )
+        //def dp = dps.hmProviders["SEAID"]
+        logger.debug("${dp.providerEmail}")
         def metaJb =  new JsonBuilder()
         // Create the CSB GeoJSON metadata header
         def meta = metaJb {
