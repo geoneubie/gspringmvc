@@ -87,7 +87,7 @@ class GeoJsonServiceNew {
 
     String meta(Map cmiMap) {
 
-        def dp = dps.getProvider("${cmiMap.dataProvider}")
+        def dp = dps.getProvider( cmiMap.dataProvider )
 
         def metaJb = new JsonBuilder()
         def meta = metaJb {

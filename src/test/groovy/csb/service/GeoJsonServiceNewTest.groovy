@@ -1,23 +1,47 @@
 package csb.service
-import csb.config.AppConfig
+
+import csb.model.DataProvider
+import csb.model.DataProviders
+import groovy.json.JsonSlurper
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import java.nio.file.Path
 import java.nio.file.Paths
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=AppConfig.class)
 class GeoJsonServiceNewTest {
 
     private static final Logger logger =
             LoggerFactory.getLogger( GeoJsonServiceNewTest.class )
 
-    def geojsonService = new GeoJsonServiceNew()
+    def geojsonService
+
+    public GeoJsonServiceNewTest() {
+        DataProvider dp = new DataProvider()
+        dp.uid = "1"
+        dp.name = "SEAID"
+        dp.providerEmail = "support@sea-id.org"
+        dp.processorEmail = "support@sea-id.org"
+        dp.ownerEmail = "support@sea-id.org"
+
+        DataProviders dps = new DataProviders()
+        dps.addProvider("SEAID", dp)
+        this.geojsonService = new GeoJsonServiceNew( dps )
+    }
+
+
+    @Test
+    public void meta() {
+
+        def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"SEAID"}'
+        def cmiMap = (new JsonSlurper()).parseText( csbMetadataInput )
+
+        String metaHdr = geojsonService.meta( cmiMap )
+
+        logger.debug(metaHdr)
+        assert metaHdr.indexOf("support@sea-id.org") > 0
+    }
 
     @Test
     public void scanXyzChunk() {
