@@ -8,7 +8,7 @@ import org.junit.Test
 class DataProvidersTest {
 
     @Test
-    void dataProvidersTest() {
+    void dataProvidersCreate() {
         DataProvider dp = new DataProvider()
         dp.uid = "1"
         dp.name = "SEAID"

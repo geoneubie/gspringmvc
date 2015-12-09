@@ -8,7 +8,7 @@ import org.junit.Test
 class DataProviderTest {
 
     @Test
-    void dataProviderTest() {
+    void dataProviderCreate() {
         DataProvider dp = new DataProvider()
         dp.uid = "1"
         dp.name = "SEAID"
@@ -18,4 +18,5 @@ class DataProviderTest {
 
         assert dp.toString() == "1:SEAID:support@sea-id.org:support@sea-id.org:support@sea-id.org"
     }
+
 }
