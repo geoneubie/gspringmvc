@@ -150,34 +150,6 @@ class GeoJsonServiceNew {
 
     }
 
-    List readXyzChunk( File xyzFile, boolean skip ) {
-        def i = 0
-        def lat
-        def lon
-        def z
-        def tokens = []
-        def pts = []
-
-        xyzFile.eachLine { line ->
-            if (i < 100) {
-                    //Assumes header
-                if (!skip) {
-                    tokens = line.tokenize(',')
-                    lat = Double.parseDouble(tokens[0])
-                    lon = Double.parseDouble(tokens[1])
-                    z = Double.parseDouble(tokens[2])
-                    pts << [lat, lon, z]
-                } else {
-                    // First line is a header, skip it and continue
-                    skip = false
-                }
-                i++
-            }
-        }
-
-        return pts
-    }
-
     String featuresChunk ( List pts ) {
         StringBuilder sb = new StringBuilder()
         pts.eachWithIndex { pt, i ->

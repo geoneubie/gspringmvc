@@ -22,17 +22,6 @@ class GeoJsonServiceNewTest extends GroovyTestCase {
     def geojsonService = new GeoJsonServiceNew()
 
     @Test
-    public void readXyzChunk() {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile());
-        List pts = geojsonService.readXyzChunk( xyzFile, true )
-
-        assert pts.size() == 99
-
-    }
-
-    @Test
     public void scanXyzChunk() {
 
         ClassLoader classLoader = getClass().getClassLoader();
@@ -78,27 +67,6 @@ class GeoJsonServiceNewTest extends GroovyTestCase {
 //        testCase += '{"type":"Feature","geometry":{"type":"Point","coordinates":["-49.2883","43.8339"]},"properties":{"depth":"429.3"}'
 //        assertEquals geojsonService.featuresChunk( pts ), testCase
 //    }
-
-    //@Test
-    public void writeJsonChunk() {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile());
-        Scanner sc = new Scanner( xyzFile )
-        List pts = geojsonService.scanXyzChunk( sc, true )
-
-        Path p = Paths.get( "${xyzFile.getAbsolutePath()}" )
-        logger.debug( "create jsonFile: ${p.getParent()}/95003.json" )
-
-        File jsonFile = new File( "${p.getParent()}/95003.json" );
-
-        jsonFile.newWriter().withWriter { writer ->
-            writer.write geojsonService.featuresChunk( pts )
-        }
-
-        assert jsonFile.readLines().size() == 99
-
-    }
 
     @Test
     public void writeAllFeatures() {
