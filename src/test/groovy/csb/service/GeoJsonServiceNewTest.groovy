@@ -4,7 +4,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
@@ -13,8 +12,7 @@ import java.nio.file.Paths
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppConfig.class)
-@ComponentScan( basePackages=[ "csb.config" ] )
-class GeoJsonServiceNewTest extends GroovyTestCase {
+class GeoJsonServiceNewTest {
 
     private static final Logger logger =
             LoggerFactory.getLogger( GeoJsonServiceNewTest.class )
@@ -58,6 +56,7 @@ class GeoJsonServiceNewTest extends GroovyTestCase {
         def pt = ["42.8339", "-50.2883", "428.3" ]
 
         assert geojsonService.feature( pt ) == '{"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}}'
+
     }
 
 //    @Test
