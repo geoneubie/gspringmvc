@@ -15,9 +15,4 @@ class TemplateController {
         return "login"
     }
 
-    @RequestMapping("/csblogin")
-    String csblogin(){
-        return "csblogin"
-    }
-
 }

@@ -85,17 +85,20 @@ class GeoJsonServiceNewTest extends GroovyTestCase {
         int totPts = 0
         boolean skip = true //Skip the first header line
 
+        def lineSeparator = System.getProperty("line.separator")
         while ( sc.hasNext() ) {
             def pts = geojsonService.scanXyzChunk( sc, skip )
             jsonFile << geojsonService.featuresChunk( pts )
+            if ( sc.hasNext() ) {
+                jsonFile << ",${lineSeparator}"
+            }
             skip = false
             totPts += pts.size()
         }
 
-
         File readJsonFile = new File( "${p.getParent()}/95003_all.json" )
-        if ( skip ) totPts = totPts - 1
-        assert readJsonFile.readLines().size() == totPts-1 //subtract one
+        //if ( skip ) totPts = totPts - 1
+        assert readJsonFile.readLines().size() == totPts
 
     }
 }

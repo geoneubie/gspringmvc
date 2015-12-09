@@ -178,19 +178,6 @@ class GeoJsonServiceNew {
 
     }
 
-    void writeJsonChunk( Writer writer, List pts ) {
-
-        def featJb = new groovy.json.StreamingJsonBuilder( writer )
-
-        def features = [ ]
-        pts.each { pt ->
-            // Create the GeoJSON feature
-
-
-        }
-
-    }
-
     // Need to handle "dataProvider" field
     Map transform( Map entries ) throws Exception {
         def jsonSlurper = new JsonSlurper()
