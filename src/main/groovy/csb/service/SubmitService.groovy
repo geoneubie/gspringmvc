@@ -1,8 +1,5 @@
 package csb.service
 import csb.model.Staging
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import javax.servlet.http.Part
@@ -10,10 +7,6 @@ import javax.servlet.http.Part
 @Service
 class SubmitService implements ITransformService {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger( SubmitService.class )
-
-    @Autowired
     private Staging stagingDirs
 
     public SubmitService( Staging stagingDirs ) {
@@ -36,7 +29,7 @@ class SubmitService implements ITransformService {
             // Write incoming file to disk
             uploadFile.write "${baseFilename}.xyz"
 
-            // Crack the file to peek and content
+            // Crack the file to peek at content
             def storedFile = new File( "${baseFilename}.xyz" )
             vs = new ValidationService<File>( storedFile )
             // Check if file is CSV with numeric values for lat, lon, and depth
@@ -48,6 +41,7 @@ class SubmitService implements ITransformService {
                 metaFile.write csbMetadataInput
 
                 // Processing data still needed for next transform
+                hmMsg << [ SUBMITTEDFILE : "${uploadFile.submittedFileName}" ]
                 hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
                 hmMsg << [ BASEFILENM : "${baseFilename}" ]
                 hmMsg << [ JSON : csbMetadataInput ]

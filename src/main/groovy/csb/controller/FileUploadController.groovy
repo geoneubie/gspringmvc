@@ -48,25 +48,24 @@ class FileUploadController {
 
         // Validate incoming metadata fields has minimum required values
         if (vs.validate() == false) {
-
             logger.debug("JSON not valid, return...")
             msg = "You must complete all required fields."
             return msg
-
         }
 
         userEntryMap << [JSON: csbMetadataInput]
         userEntryMap << [FILE: file]
 
         // Transfer incoming data to local disk
-        def resultMap = ss.transform( userEntryMap )
-        if ( !resultMap.ERROR ) { //Continue processing the file
+        def ssResultMap = ss.transform( userEntryMap )
+        if ( !ssResultMap.ERROR ) { //Continue processing the file
             logger.debug("No errors continue processing...")
             // Convert the data to geojson
             // This should be asynchronous processing
-            gs.transform(resultMap)
+            def gsResultMap = gs.transform(ssResultMap)
         }
-        msg = resultMap.TRANSFORMED
+        msg = ssResultMap.TRANSFORMED
+        return msg
 
     }
 

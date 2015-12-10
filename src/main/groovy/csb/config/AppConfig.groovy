@@ -1,4 +1,5 @@
 package csb.config
+
 import csb.aspect.TransformLogger
 import csb.model.DataProviders
 import csb.model.Staging
@@ -70,7 +71,7 @@ class AppConfig {
     @Bean
     public ITransformService gs() {
 
-        ITransformService gs = new GeoJsonService( staging(), dps() )
+        ITransformService gs = new GeoJsonService( dps() )
         return gs
 
     }

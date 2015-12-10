@@ -10,14 +10,16 @@ import org.slf4j.LoggerFactory
 import java.nio.file.Path
 import java.nio.file.Paths
 
-class GeoJsonServiceNewTest {
+class GeoJsonServiceTest {
 
     private static final Logger logger =
-            LoggerFactory.getLogger( GeoJsonServiceNewTest.class )
+            LoggerFactory.getLogger( GeoJsonServiceTest.class )
 
     def geojsonService
 
-    public GeoJsonServiceNewTest() {
+    public GeoJsonServiceTest() {
+
+        //Test set-up
         DataProvider dp = new DataProvider()
         dp.uid = "1"
         dp.name = "SEAID"
@@ -27,7 +29,8 @@ class GeoJsonServiceNewTest {
 
         DataProviders dps = new DataProviders()
         dps.addProvider("SEAID", dp)
-        this.geojsonService = new GeoJsonServiceNew( dps )
+        this.geojsonService = new GeoJsonService( dps )
+
     }
 
 
@@ -36,11 +39,10 @@ class GeoJsonServiceNewTest {
 
         def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"SEAID"}'
         def cmiMap = (new JsonSlurper()).parseText( csbMetadataInput )
+        List<String> metaHdrList = geojsonService.meta( cmiMap )
 
-        String metaHdr = geojsonService.meta( cmiMap )
+        assert metaHdrList[0].length() > 0 && metaHdrList[1].length() == 2
 
-        logger.debug(metaHdr)
-        assert metaHdr.indexOf("support@sea-id.org") > 0
     }
 
     @Test
@@ -83,7 +85,7 @@ class GeoJsonServiceNewTest {
 
     }
 
-//    @Test
+//    @Test Doesn't work for unknown reasons
 //    public void featuresChunk() {
 //        def pts = [ ["42.8339", "-50.2883", "428.3"], ["43.8339", "-49.2883", "429.3"] ]
 //        String testCase = '{"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}},' + System.getProperty("line.separator")
