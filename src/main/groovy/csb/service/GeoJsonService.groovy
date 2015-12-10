@@ -118,7 +118,8 @@ class GeoJsonService implements ITransformService {
 
         meta << [ "properties": metaProps ]
         String fullMetaStr = new JsonBuilder(meta).toPrettyString()
-        String preMetaStr = fullMetaStr.substring( 0, fullMetaStr.length()-2 )
+
+        String preMetaStr = fullMetaStr.substring( 0, fullMetaStr.length()-2 ) + ","
         String postMetaStr = fullMetaStr.substring( fullMetaStr.length()-2, fullMetaStr.length() )
 
         return [ preMetaStr, postMetaStr ]
@@ -176,7 +177,7 @@ class GeoJsonService implements ITransformService {
                 depth pt[2]
             }
         }
-        return featJb.toString()
+        return "        ${featJb.toString()}"
 
     }
 
@@ -191,23 +192,25 @@ class GeoJsonService implements ITransformService {
 
         Scanner sc = new Scanner( xyzFile )
         // Write the metadata header block
-        jsonFile.write metaListStr[0]
+        def lineSeparator = System.getProperty("line.separator")
+        jsonFile.write "${metaListStr[0]}${lineSeparator}"
+        jsonFile.append "    \"features\": [${lineSeparator}"
 
         // Now write the features
         boolean skip = true //Skip the first header line
-        def lineSeparator = System.getProperty("line.separator")
 
         while ( sc.hasNext() ) {
             def pts = this.scanXyzChunk( sc, skip )
-            jsonFile.write this.featuresChunk( pts )
+            jsonFile.append this.featuresChunk( pts )
             if ( sc.hasNext() ) {
-                jsonFile.write ",${lineSeparator}"
+                jsonFile.append ",${lineSeparator}"
             }
             skip = false
         }
 
         // Now close-out the file
-        jsonFile.write metaListStr[1]
+        jsonFile.append "${lineSeparator}    ]${metaListStr[1]}"
+
         def hmMsg = [ TRANSFORMED : "GeoJson conversion complete." ]
         return hmMsg
     }

@@ -81,7 +81,7 @@ class GeoJsonServiceTest {
 
         def pt = ["42.8339", "-50.2883", "428.3" ]
 
-        assert geojsonService.feature( pt ) == '{"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}}'
+        assert geojsonService.feature( pt ) == '        {"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}}'
 
     }
 
