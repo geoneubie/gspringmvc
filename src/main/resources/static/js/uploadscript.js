@@ -18,10 +18,10 @@ function submitForm() {
         return o;
     };
 
-    var csbMetadataInput = JSON.stringify($('#fileinfo').serializeObject());
-    console.log("metadata=" + csbMetadataInput);
-    var fd = new FormData(document.getElementById("fileinfo"));
-    fd.append("csbMetadataInput", csbMetadataInput);
+    var csbMetadataInput = JSON.stringify($( '#fileinfo' ).serializeObject());
+    console.log( "metadata=" + csbMetadataInput );
+    var fd = new FormData(document.getElementById( "fileinfo" ));
+    fd.append( "csbMetadataInput", csbMetadataInput );
     $.ajax({
       url: "/fileupload/upload",
       type: "POST",
@@ -29,10 +29,20 @@ function submitForm() {
       enctype: 'multipart/form-data',
       processData: false,  // tell jQuery not to process the data
       contentType: false   // tell jQuery not to set contentType
-    }).done(function( data ) {
-        console.log("Output:");
-        console.log( data );
-        document.getElementById("output").innerHTML = data;
+    }).done(function( data, status, xhr ) {
+        console.log( "Output:" );
+        var ct = xhr.getResponseHeader("content-type") || "";
+        console.log( ct )
+        if (ct.indexOf( 'html' ) > -1) {
+          document.write( data )
+        }
+        if (ct.indexOf( 'plain' ) > -1) {
+            console.log( data );
+            document.getElementById( "output" ).innerHTML = data;
+        }
+        if (ct.indexOf( 'json' ) > -1) {
+          // handle json here
+        }
     });
     return false;
 }
