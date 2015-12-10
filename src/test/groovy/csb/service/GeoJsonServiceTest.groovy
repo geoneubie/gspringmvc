@@ -48,8 +48,8 @@ class GeoJsonServiceTest {
     @Test
     public void scanXyzChunk() {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile());
+        ClassLoader classLoader = getClass().getClassLoader()
+        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile())
         Scanner sc = new Scanner( xyzFile )
         List pts = geojsonService.scanXyzChunk( sc, true )
 
@@ -60,8 +60,8 @@ class GeoJsonServiceTest {
     @Test
     public void scanXyzToEOF() {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile());
+        ClassLoader classLoader = getClass().getClassLoader()
+        File xyzFile = new File(classLoader.getResource("data/95003.xyz").getFile())
         Scanner sc = new Scanner( xyzFile )
         int totPts = 0
         def pts = []
@@ -122,7 +122,6 @@ class GeoJsonServiceTest {
         }
 
         File readJsonFile = new File( "${p.getParent()}/95003_all.json" )
-        //if ( skip ) totPts = totPts - 1
         assert readJsonFile.readLines().size() == totPts
 
     }

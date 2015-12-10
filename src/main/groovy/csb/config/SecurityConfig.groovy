@@ -35,7 +35,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
-            .disable()
+                .disable()
             .authorizeRequests()
                 .antMatchers( "/fileupload/**" )
                 .authenticated()
