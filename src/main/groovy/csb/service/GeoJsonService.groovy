@@ -9,7 +9,7 @@ class GeoJsonService implements ITransformService {
 
     private DataProviders dps
 
-    public GeoJsonService(DataProviders dps) {
+    public GeoJsonService( DataProviders dps ) {
         this.dps = dps
     }
 

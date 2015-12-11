@@ -1,8 +1,8 @@
 package csb.config
-
 import csb.aspect.TransformLogger
 import csb.model.DataProviders
 import csb.model.Staging
+import csb.service.AsyncGeoJsonServiceWrapper
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
@@ -12,9 +12,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
+import org.springframework.scheduling.annotation.EnableAsync
 
 @Configuration
 @EnableAutoConfiguration
+@EnableAsync
 @EnableAspectJAutoProxy
 class AppConfig {
 
@@ -73,6 +75,14 @@ class AppConfig {
 
         ITransformService gs = new GeoJsonService( dps() )
         return gs
+
+    }
+
+    @Bean
+    public AsyncGeoJsonServiceWrapper agsw() {
+
+        AsyncGeoJsonServiceWrapper agsw = new AsyncGeoJsonServiceWrapper( )
+        return agsw
 
     }
 

@@ -1,20 +1,21 @@
 package csb.controller
 
+import csb.service.AsyncGeoJsonServiceWrapper
 import csb.service.ITransformService
 import csb.service.ValidationService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.stereotype.Controller
 import org.springframework.security.access.annotation.Secured
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.*
+
+import javax.servlet.http.Part
 
 /**
  * Created by dneufeld on 9/24/15.
  */
-import org.springframework.web.bind.annotation.*
-
-import javax.servlet.http.Part
 
 @Controller
 @ComponentScan( basePackages=[ "csb.config" ] )
@@ -29,6 +30,9 @@ class FileUploadController {
 
     @Autowired
     private ITransformService gs
+
+    @Autowired
+    private AsyncGeoJsonServiceWrapper agsw
 
     @Secured("USER")
     @RequestMapping(value="/ping", method=RequestMethod.GET)
@@ -57,12 +61,18 @@ class FileUploadController {
         userEntryMap << [FILE: file]
 
         // Transfer incoming data to local disk
-        def ssResultMap = ss.transform( userEntryMap )
+        Map ssResultMap = ss.transform( userEntryMap )
         if ( !ssResultMap.ERROR ) { //Continue processing the file
             logger.debug("No errors continue processing...")
             // Convert the data to geojson
             // This should be asynchronous processing
-            def gsResultMap = gs.transform(ssResultMap)
+            def beforeTransform = Calendar.getInstance().getTimeInMillis()
+            agsw.transform( gs, userEntryMap  )
+
+            def afterAsyncTransformCompleted  = Calendar.getInstance().getTimeInMillis()
+            def durationCompleted = afterAsyncTransformCompleted - beforeTransform
+            logger.debug("timeCompleted=${durationCompleted} in ms")
+
         }
         msg = ssResultMap.TRANSFORMED
         return msg
