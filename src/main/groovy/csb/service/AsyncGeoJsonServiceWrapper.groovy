@@ -16,7 +16,6 @@ class AsyncGeoJsonServiceWrapper {
     void transform(ITransformService gs, Map entries) {
         def start = Calendar.getInstance().getTimeInMillis()
         gs.transform( entries )
-        Thread.sleep( 2000 ) // 2-second pause for testing async
         def end = Calendar.getInstance().getTimeInMillis()
         def duration = end - start
         logger.debug("Work completed in ${duration/1000} secs")

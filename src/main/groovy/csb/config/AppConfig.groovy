@@ -24,21 +24,22 @@ class AppConfig {
 
     private String activeProfile
 
+    private config
+
     public AppConfig() {
 
         // Get active profile
         this.activeProfile = System.getProperty "spring.profiles.active"
         logger.debug "activeProfile=${activeProfile}"
-
+        config = new ConfigSlurper("${activeProfile}").parse(
+                new File("config/appConfig.groovy").toURI().toURL())
     }
+
 
     @Bean
     public DataProviders dps() {
 
         logger.debug "DataProviders bean construction..."
-
-        def config = new ConfigSlurper("${activeProfile}").parse(
-                new File("config/appConfig.groovy").toURI().toURL())
 
         DataProviders dps = new DataProviders( config.data.providers )
 
