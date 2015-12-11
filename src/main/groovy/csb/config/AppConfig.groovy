@@ -2,7 +2,6 @@ package csb.config
 import csb.aspect.TransformLogger
 import csb.model.DataProviders
 import csb.model.Staging
-import csb.service.AsyncGeoJsonServiceWrapper
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
@@ -75,14 +74,6 @@ class AppConfig {
 
         ITransformService gs = new GeoJsonService( dps() )
         return gs
-
-    }
-
-    @Bean
-    public AsyncGeoJsonServiceWrapper agsw() {
-
-        AsyncGeoJsonServiceWrapper agsw = new AsyncGeoJsonServiceWrapper( )
-        return agsw
 
     }
 

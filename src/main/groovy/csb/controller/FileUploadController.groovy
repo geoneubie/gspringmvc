@@ -67,7 +67,7 @@ class FileUploadController {
             // Convert the data to geojson
             // This should be asynchronous processing
             def beforeTransform = Calendar.getInstance().getTimeInMillis()
-            agsw.transform( gs, userEntryMap  )
+            agsw.transform( gs, ssResultMap  )
 
             def afterAsyncTransformCompleted  = Calendar.getInstance().getTimeInMillis()
             def durationCompleted = afterAsyncTransformCompleted - beforeTransform
