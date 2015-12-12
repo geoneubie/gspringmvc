@@ -114,6 +114,7 @@
                                                 <p class="text-muted">
                                                 <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
                                                     <tr><th>Platform</th><th></th><th>Sensors</th><th></th></tr>
+                                                    <tr><td>Provider:</td><td><span th:text="${username}">username</span></td><td></td><td></td></tr>
                                                     <tr><td>Ship Name:</td><td><input type="text" name="shipname" value="" size="25"/></td><td>Sounder Make:</td><td><input type="text" name="soundermake" value="" size="25"/></td></tr>
                                                     <tr><td>IMO No.:</td><td><input type="text" name="imonumber" value="" size="25"/></td><td>Sounder Model:</td><td><input type="text" name="soundermodel" value="" size="25"/></td></tr>
                                                     <tr><td>Draft:</td><td><input type="text" name="draft" value="" size="5" maxlength="2"/>&nbsp;meters</td><td>Sounder Serial No.:</td><td><input type="text" name="sounderserialno" value="" size="25"/></td></tr>
@@ -122,12 +123,7 @@
                                                     <tr><td></td><td></td><td>Velocity:</td><td><input type="text" name="velocity" value="" size="5" maxlength="2"/>&nbsp;meters/second</td></tr>
                                                     <tr><td></td><td></td><td>GPS Make:</td><td><input type="text" name="gpsmake" value="" size="25"/></td></tr>
                                                     <tr><td></td><td></td><td>GPS Model:</td><td><input type="text" name="gpsmodel" value="" size="25"/></td></tr>
-                                                    <tr><td>Provider:</td><td  align="right"><select name="dataProvider">
-                                                            <option value="LINBLAD">Lindblad Expeditions</option>
-                                                            <option value="SEAID">Sea ID</option>
-                                                        </select></td>
-                                                        <td align="right" colspan="2"><input type="file" name="file" /></td>
-                                                    </tr>
+                                                    <tr><td></td><td><input type="hidden" name="dataProvider" th:value="${username}" /></td><td align="right" colspan="2"><input type="file" name="file" /></td></tr>
                                                     <tr><td align="right" colspan="4"><input type="submit" value="Upload" /></td></tr>
                                                     <tr><td colspan="4"><div id="output"></div></td></tr>
                                                 </form><br/>

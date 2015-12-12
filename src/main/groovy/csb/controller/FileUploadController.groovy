@@ -68,10 +68,9 @@ class FileUploadController {
             // This should be asynchronous processing
             def beforeTransform = Calendar.getInstance().getTimeInMillis()
             agsw.transform( gs, ssResultMap  )
-
             def afterAsyncTransformCompleted  = Calendar.getInstance().getTimeInMillis()
             def durationCompleted = afterAsyncTransformCompleted - beforeTransform
-            logger.debug("timeCompleted=${durationCompleted} in ms")
+            logger.debug("response to browser ${durationCompleted/1000} in secs")
 
         }
         msg = ssResultMap.TRANSFORMED
