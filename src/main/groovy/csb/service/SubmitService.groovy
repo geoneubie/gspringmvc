@@ -1,8 +1,7 @@
 package csb.service
 import csb.model.Staging
 import org.springframework.stereotype.Service
-
-import javax.servlet.http.Part
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class SubmitService implements ITransformService {
@@ -20,20 +19,22 @@ class SubmitService implements ITransformService {
         def hmMsg = [:]
         def mapStagingDirs = this.stagingDirs.map
         def csbMetadataInput = userEntries.JSON
-        Part uploadFile = userEntries.FILE
-        ValidationService<?> vs = new ValidationService<Part>( uploadFile )
+        MultipartFile uploadFile = userEntries.FILE
+        ValidationService<?> vs = new ValidationService<MultipartFile>( uploadFile )
         // Check if file is empty
         boolean validFile = vs.validate()
 
         if ( validFile ) {
 
             def baseFilename = "${mapStagingDirs.CSBFILES}/csb_${UUID.randomUUID()}"
+
+            def storedFile = new File( "${baseFilename}.xyz" )
             // Write incoming file to disk
-            uploadFile.write "${baseFilename}.xyz"
+            uploadFile.transferTo( storedFile )
 
             // Crack the file to peek at content
-            def storedFile = new File( "${baseFilename}.xyz" )
             vs = new ValidationService<File>( storedFile )
+
             // Check if file is CSV with numeric values for lat, lon, and depth
             def validContent = vs.validate()
 
@@ -43,8 +44,9 @@ class SubmitService implements ITransformService {
                 metaFile.write csbMetadataInput
 
                 // Processing data still needed for next transform
-                hmMsg << [ SUBMITTEDFILE : "${uploadFile.submittedFileName}" ]
-                hmMsg << [ TRANSFORMED : "Your file ${uploadFile.submittedFileName} has been received!" ]
+                def origFileNm = "${uploadFile.originalFilename}"
+
+                hmMsg << [ TRANSFORMED : "Your file ${origFileNm} has been received!" ]
                 hmMsg << [ BASEFILENM : "${baseFilename}" ]
                 hmMsg << [ JSON : csbMetadataInput ]
             } else {

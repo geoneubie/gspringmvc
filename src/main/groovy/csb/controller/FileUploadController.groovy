@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 import javax.servlet.http.Part
 
@@ -43,7 +44,7 @@ class FileUploadController {
     @Secured("USER")
     @RequestMapping( value="/upload", method=RequestMethod.POST )
     public @ResponseBody String handleFileUpload( @RequestParam("csbMetadataInput") String csbMetadataInput,
-                                                  @RequestPart("file") Part file ) {
+                                                  @RequestPart("file") MultipartFile file ) {
         logger.debug "Upload request made."
 
         def userEntryMap = [:]

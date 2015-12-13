@@ -1,8 +1,7 @@
 package csb.service
 import groovy.json.JsonSlurper
 import org.springframework.stereotype.Service
-
-import javax.servlet.http.Part
+import org.springframework.web.multipart.MultipartFile
 /**
  * Created by dneufeld on 11/24/15.
  */
@@ -68,7 +67,7 @@ class ValidationService<T> implements IValidateService {
 
     }
 
-    boolean validate( Part uploadFile ) {
+    boolean validate( MultipartFile uploadFile ) {
 
         boolean valid = false
         if ( uploadFile != null && uploadFile.size > 0 ) {
