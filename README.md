@@ -6,3 +6,6 @@ gradle -PjvmArgs="-Dspring.profiles.active=test" bootRun
 
 bootRun defaults to dev if no args passed
 
+Access h2 in development via
+https://localhost:8443/h2-console/
+with jdbc:h2:mem:csb connect URL
