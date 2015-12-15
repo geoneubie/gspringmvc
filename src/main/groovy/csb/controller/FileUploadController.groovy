@@ -19,7 +19,7 @@ import javax.servlet.http.Part
  */
 
 @Controller
-@ComponentScan( basePackages=[ "csb.config" ] )
+@ComponentScan( basePackages=[ "csb.config", "csb.bootstrap" ] )
 @RequestMapping ( value = "/fileupload" ) //toplevel controller endpoint
 class FileUploadController {
 

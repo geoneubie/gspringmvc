@@ -20,7 +20,7 @@ class AppConfig {
     private static final Logger logger =
             LoggerFactory.getLogger AppConfig.class
 
-    private String activeProfile
+    private static String activeProfile
 
     private def config
 
@@ -33,54 +33,15 @@ class AppConfig {
                 new File("config/appConfig.groovy").toURI().toURL())
     }
 
-    // Development
-//    @Bean
-//    public DataSource embeddedDataSource() {
-//        return new EmbeddedDatabaseBuilder()
-//        .setType(EmbeddedDatabaseType.H2)
-//                .build()
-//    }
-
-//    @Bean
-//    public BasicDataSource dataSource() {
-//        BasicDataSource ds = new BasicDataSource();
-//        ds.setDriverClassName("org.h2.Driver");
-//        ds.setUrl("jdbc:h2:tcp://localhost/mem/csb");
-//        ds.setUsername("sa");
-//        ds.setPassword("");
-//        ds.setInitialSize(5);
-//        ds.setMaxActive(10);
-//        return ds;
-//    }
-
-//    @Bean
-//    public JpaVendorAdapter jpaVendorAdapter() {
-//        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-//        adapter.setDatabase("H2");
-//        adapter.setShowSql(true);
-//        adapter.setGenerateDdl(true);
-//        adapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
-//        return adapter;
-//    }
-
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-//            DataSource embeddedDataSource, JpaVendorAdapter jpaVendorAdapter) {
-//        LocalContainerEntityManagerFactoryBean emfb =
-//                new LocalContainerEntityManagerFactoryBean()
-//        emfb.setDataSource( dataSource )
-//        emfb.setJpaVendorAdapter( jpaVendorAdapter )
-//        emfb.setPackagesToScan( "csb.model" )
-//        return emfb;
-//    }
+    public static String getActiveProfile() {
+        return this.activeProfile
+    }
 
     @Bean
     public DataProviders dps() {
 
         logger.debug "DataProviders bean construction..."
-
         DataProviders dps = new DataProviders( config.data.providers )
-
         return dps
 
     }
@@ -89,12 +50,6 @@ class AppConfig {
     public Staging staging() {
 
         logger.debug "Staging bean construction..."
-
-        // get active profile
-        String activeProfile = System.getProperty "spring.profiles.active"
-        def config = new ConfigSlurper("${activeProfile}").parse(
-                new File("config/appConfig.groovy").toURI().toURL())
-        
         Staging staging = new Staging( config.staging.dir.map )
         return staging
 
