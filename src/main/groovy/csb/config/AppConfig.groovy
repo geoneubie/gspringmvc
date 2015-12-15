@@ -1,6 +1,5 @@
 package csb.config
 import csb.aspect.TransformLogger
-import csb.model.DataProviders
 import csb.model.Staging
 import csb.service.GeoJsonService
 import csb.service.ITransformService
@@ -8,13 +7,21 @@ import csb.service.SubmitService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.scheduling.annotation.EnableAsync
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAsync
 @EnableAspectJAutoProxy
+@EnableAutoConfiguration
+@EntityScan(basePackages = ["csb.model"] )
+@EnableJpaRepositories(basePackages = ["csb.repos"] )
+@EnableTransactionManagement
 class AppConfig {
 
     private static final Logger logger =
@@ -37,14 +44,14 @@ class AppConfig {
         return this.activeProfile
     }
 
-    @Bean
-    public DataProviders dps() {
-
-        logger.debug "DataProviders bean construction..."
-        DataProviders dps = new DataProviders( config.data.providers )
-        return dps
-
-    }
+//    @Bean
+//    public DataProviders dps() {
+//
+//        logger.debug "DataProviders bean construction..."
+//        DataProviders dps = new DataProviders( config.data.providers )
+//        return dps
+//
+//    }
 
     @Bean
     public Staging staging() {
@@ -66,7 +73,7 @@ class AppConfig {
     @Bean
     public ITransformService gs() {
 
-        ITransformService gs = new GeoJsonService( dps() )
+        ITransformService gs = new GeoJsonService( )
         return gs
 
     }

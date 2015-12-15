@@ -10,5 +10,6 @@ interface IDataProviderRepository extends JpaRepository<DataProviderEntity, Long
 
     // Specific custom query adds
     DataProviderEntity findByName( String name )
+    Long deleteByName( String name )
 
 }

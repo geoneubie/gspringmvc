@@ -1,5 +1,4 @@
 package csb.bootstrap
-
 import csb.config.AppConfig
 import csb.model.DataProviderEntity
 import csb.repos.IDataProviderRepository
@@ -13,15 +12,11 @@ import org.springframework.stereotype.Component
 @Component
 class DataProviderLoader implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Autowired
     private IDataProviderRepository idpRepository
 
     private static final Logger logger =
             LoggerFactory.getLogger(DataProviderLoader.class)
-
-    @Autowired
-    public void setDataProviderRepository(IDataProviderRepository idpRepository) {
-        this.idpRepository = idpRepository
-    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

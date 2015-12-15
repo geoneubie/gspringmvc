@@ -15,21 +15,34 @@ class DataProviders {
     def hmProviders = new HashMap()
 
     public DataProviders( List dpsConfigList ) {
+
         dpsConfigList.each { p ->
             this.addProvider( "${p.name}", p)
         }
+
     }
-    void addProvider( String name, def dpConfigMap ) {
-        def dp = new DataProvider()
-        dp.uid = "${dpConfigMap.uid}"
+
+    void addProvider( String name, Map dpConfigMap ) {
+
+        logger.debug( "Adding from Map" )
+        def dp = new DataProviderEntity()
         dp.name = "${dpConfigMap.name}"
         dp.providerEmail = "${dpConfigMap.providerEmail}"
         dp.processorEmail = "${dpConfigMap.processorEmail}"
         dp.ownerEmail = "${dpConfigMap.ownerEmail}"
         this.hmProviders.put(name, dp)
+
     }
 
-    DataProvider getProvider( String name ) {
+
+    void addProvider( String name, DataProviderEntity dp ) {
+
+        logger.debug( "Adding from DataProvider" )
+        this.hmProviders.put(name, dp)
+
+    }
+
+    DataProviderEntity getProvider( String name ) {
         return this.hmProviders.get( name )
     }
 }

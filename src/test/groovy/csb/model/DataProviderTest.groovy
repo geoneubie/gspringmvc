@@ -9,14 +9,14 @@ class DataProviderTest {
 
     @Test
     void dataProviderCreate() {
-        DataProvider dp = new DataProvider()
-        dp.uid = "1"
+        DataProviderEntity dp = new DataProviderEntity()
+
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"
         dp.processorEmail = "support@sea-id.org"
         dp.ownerEmail = "support@sea-id.org"
 
-        assert dp.toString() == "1:SEAID:support@sea-id.org:support@sea-id.org:support@sea-id.org"
+        assert dp.toString() == "0:SEAID:support@sea-id.org:support@sea-id.org:support@sea-id.org"
     }
 
 }

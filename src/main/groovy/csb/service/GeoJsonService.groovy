@@ -1,16 +1,43 @@
 package csb.service
+import csb.model.DataProviderEntity
 import csb.model.DataProviders
+import csb.repos.IDataProviderRepository
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Service
 
+@ComponentScan( basePackages=[ "csb.config"] )
 @Service
 class GeoJsonService implements ITransformService {
 
+    @Autowired
+    private IDataProviderRepository dpRepository
+
     private DataProviders dps
+
+    public void setDataProviderRepository(IDataProviderRepository idpRepository) {
+        this.idpRepository = idpRepository
+    }
 
     public GeoJsonService( DataProviders dps ) {
         this.dps = dps
+    }
+
+    public GeoJsonService() {
+
+    }
+
+    private void loadDataProviders() {
+
+        DataProviders dps = new DataProviders()
+        for (DataProviderEntity dpe : dpRepository.findAll()) {
+            dps.addProvider( dpe.name, dpe)
+        }
+
+        this.dps = dps
+
     }
 
     String featureCollection() {
@@ -188,8 +215,8 @@ class GeoJsonService implements ITransformService {
 
     }
 
-    // Need to handle "dataProvider" field
     Map transform( Map entries ) throws Exception {
+        loadDataProviders()
 
         def jsonSlurper = new JsonSlurper()
         def cmi = jsonSlurper.parseText( entries.JSON )

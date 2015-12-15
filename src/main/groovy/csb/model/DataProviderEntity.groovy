@@ -4,9 +4,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-/**
- * Created by dneufeld on 12/4/15.
- */
+
 @Entity
 class DataProviderEntity implements Serializable {
 

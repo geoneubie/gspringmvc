@@ -1,5 +1,6 @@
 package csb.repos
-import csb.config.RepositoryConfig
+
+import csb.config.AppConfig
 import csb.model.DataProviderEntity
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -8,25 +9,20 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-/**
- * Created by dneufeld on 12/13/15.
- */
+import org.springframework.transaction.annotation.Transactional
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=RepositoryConfig.class)
-//@SpringApplicationConfiguration(classes = [RepositoryConfiguration.class] )
+@ContextConfiguration(classes=AppConfig.class)
 class DataProviderRepositoryTest {
 
     private static final Logger logger =
             LoggerFactory.getLogger( DataProviderRepositoryTest.class )
 
+    @Autowired
     private IDataProviderRepository dpRepository
 
-    @Autowired
-    public void setIDataProviderRepository(IDataProviderRepository dpRepository) {
-        this.dpRepository = dpRepository
-    }
-
     @Test
+    @Transactional
     public void saveDps( ) {
 
         dpRepository.save( new DataProviderEntity( "SEAID", "support@seaid.org", "support@seaid.org", "support@seaid.org") )
@@ -37,7 +33,8 @@ class DataProviderRepositoryTest {
         }
         DataProviderEntity dpe = dpRepository.findByName("SEAID")
 
-        assert dpe.toString() == "1:SEAID:support@seaid.org:support@seaid.org:support@seaid.org"
+        assert dpe.toString() == "3:SEAID:support@seaid.org:support@seaid.org:support@seaid.org"
+
     }
 
 }

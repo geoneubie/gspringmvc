@@ -1,5 +1,6 @@
 package csb.controller
 
+import csb.repos.IDataProviderRepository
 import csb.service.AsyncGeoJsonServiceWrapper
 import csb.service.ITransformService
 import csb.service.ValidationService
@@ -45,6 +46,7 @@ class FileUploadController {
     @RequestMapping( value="/upload", method=RequestMethod.POST )
     public @ResponseBody String handleFileUpload( @RequestParam( "csbMetadataInput" ) String csbMetadataInput,
                                                   @RequestPart( "file" ) MultipartFile file ) {
+
         logger.debug( "Upload request made." )
 
         def userEntryMap = [:]
