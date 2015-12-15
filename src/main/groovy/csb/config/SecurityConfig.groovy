@@ -16,25 +16,30 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        SimpleUrlAuthenticationSuccessHandler authenticationSuccessHandler = new SimpleUrlAuthenticationSuccessHandler();
-        authenticationSuccessHandler.setDefaultTargetUrl("/fileupload/index.html");
-        authenticationSuccessHandler.setTargetUrlParameter("redirect");
-        return authenticationSuccessHandler;
+
+        SimpleUrlAuthenticationSuccessHandler authenticationSuccessHandler = new SimpleUrlAuthenticationSuccessHandler()
+        authenticationSuccessHandler.setDefaultTargetUrl( "/fileupload/index.html" )
+        authenticationSuccessHandler.setTargetUrlParameter( "redirect" )
+        return authenticationSuccessHandler
+
     }
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure( AuthenticationManagerBuilder auth ) throws Exception {
+
         auth
                 .inMemoryAuthentication()
-                .withUser( "dave" ).password( "dave" ).roles("USER").and()
-                .withUser( "SEAID" ).password( "SEAID" ).roles("USER").and()
-                .withUser( "LINBLAD" ).password( "LINBLAD" ).roles("USER").and()
-                .withUser( "admin" ).password( "admin" ).roles("USER", "ADMIN")
+                .withUser( "dave" ).password( "dave" ).roles( "USER" ).and()
+                .withUser( "SEAID" ).password( "SEAID" ).roles( "USER" ).and()
+                .withUser( "LINBLAD" ).password( "LINBLAD" ).roles( "USER" ).and()
+                .withUser( "admin" ).password( "admin" ).roles( "USER", "ADMIN" )
+
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure( HttpSecurity http ) throws Exception {
+
         http
             .csrf()
                 .disable()
@@ -52,6 +57,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/login?logout")
                 .permitAll()
+
     }
 
 }

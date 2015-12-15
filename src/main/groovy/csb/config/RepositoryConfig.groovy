@@ -16,4 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 class RepositoryConfig {
 
+    //It's all about the annotations.
+
 }

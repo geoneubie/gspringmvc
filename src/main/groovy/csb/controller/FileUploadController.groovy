@@ -35,43 +35,43 @@ class FileUploadController {
     @Autowired
     private AsyncGeoJsonServiceWrapper agsw
 
-    @Secured("USER")
-    @RequestMapping(value="/ping", method=RequestMethod.GET)
+    @Secured( "USER" )
+    @RequestMapping( value="/ping", method=RequestMethod.GET )
     public @ResponseBody String ping() throws Exception {
         return "FileUploadController is alive."
     }
 
-    @Secured("USER")
+    @Secured( "USER" )
     @RequestMapping( value="/upload", method=RequestMethod.POST )
-    public @ResponseBody String handleFileUpload( @RequestParam("csbMetadataInput") String csbMetadataInput,
-                                                  @RequestPart("file") MultipartFile file ) {
-        logger.debug "Upload request made."
+    public @ResponseBody String handleFileUpload( @RequestParam( "csbMetadataInput" ) String csbMetadataInput,
+                                                  @RequestPart( "file" ) MultipartFile file ) {
+        logger.debug( "Upload request made." )
 
         def userEntryMap = [:]
         String msg
         ValidationService<String> vs = new ValidationService<String>( csbMetadataInput )
 
         // Validate incoming metadata fields has minimum required values
-        if (vs.validate() == false) {
+        if ( vs.validate() == false ) {
             logger.debug("JSON not valid, return...")
             msg = "You must complete all required fields."
             return msg
         }
 
-        userEntryMap << [JSON: csbMetadataInput]
-        userEntryMap << [FILE: file]
+        userEntryMap << [ JSON: csbMetadataInput ]
+        userEntryMap << [ FILE: file ]
 
         // Transfer incoming data to local disk
         Map ssResultMap = ss.transform( userEntryMap )
         if ( !ssResultMap.ERROR ) { //Continue processing the file
-            logger.debug("No errors continue processing...")
+            logger.debug( "No errors continue processing..." )
             // Convert the data to geojson
             // This should be asynchronous processing
             def beforeTransform = Calendar.getInstance().getTimeInMillis()
             agsw.transform( gs, ssResultMap  )
             def afterAsyncTransformCompleted  = Calendar.getInstance().getTimeInMillis()
             def durationCompleted = afterAsyncTransformCompleted - beforeTransform
-            logger.debug("response to browser ${durationCompleted/1000} in secs")
+            logger.debug( "response to browser ${durationCompleted/1000} in secs" )
 
         }
         msg = ssResultMap.TRANSFORMED

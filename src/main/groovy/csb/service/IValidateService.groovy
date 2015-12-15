@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service
 @Service
 interface IValidateService {
 
-    boolean validate( )
+    boolean validate()
 
 }

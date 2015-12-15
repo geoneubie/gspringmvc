@@ -50,12 +50,12 @@ class ValidationService<T> implements IValidateService {
             def pts = []
 
             tokens = line.tokenize( ',' )
-            def lat = Double.parseDouble(tokens[0])
-            def lon = Double.parseDouble(tokens[1])
-            def z = Double.parseDouble(tokens[2])
+            def lat = Double.parseDouble( tokens[0] )
+            def lon = Double.parseDouble( tokens[1] )
+            def z = Double.parseDouble( tokens[2] )
             valid = true
 
-        } catch (Exception e) {
+        } catch ( Exception e ) {
 
             valid = false
 

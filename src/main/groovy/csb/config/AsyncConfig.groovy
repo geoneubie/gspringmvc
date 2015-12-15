@@ -23,10 +23,12 @@ class AsyncConfig {
 
     @Bean(name="workExecutor")
     public TaskExecutor taskExecutor() {
+
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setMaxPoolSize(5);
         taskExecutor.setQueueCapacity(10);
         taskExecutor.afterPropertiesSet();
         return taskExecutor;
+
     }
 }

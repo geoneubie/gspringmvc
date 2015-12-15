@@ -8,10 +8,10 @@ class SubmitService implements ITransformService {
 
     private Staging stagingDirs
 
-    public SubmitService () {}
-
     public SubmitService( Staging stagingDirs ) {
+
         this.stagingDirs = stagingDirs
+
     }
 
     Map transform( Map userEntries ) throws Exception {

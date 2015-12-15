@@ -14,6 +14,7 @@ class GeoJsonService implements ITransformService {
     }
 
     String featureCollection() {
+
         def fcJb = new JsonBuilder()
         // Create the CSB GeoJSON metadata header
         def fc = fcJb {
@@ -29,7 +30,8 @@ class GeoJsonService implements ITransformService {
 
     }
 
-    def addGps(Map cmiMap) {
+    def addGps( Map cmiMap ) {
+
         def gpsJb = new JsonBuilder()
         def gps = gpsJb {
             type "GPS"
@@ -37,9 +39,10 @@ class GeoJsonService implements ITransformService {
             model "${cmiMap.gpsmake}"
         }
         return gps
+
     }
 
-    def addSounder(Map cmiMap) {
+    def addSounder( Map cmiMap ) {
 
         def sounderJb = new JsonBuilder()
         def sounder = sounderJb {
@@ -49,9 +52,10 @@ class GeoJsonService implements ITransformService {
             serialno "${cmiMap.sounderserialno}"
         }
         return sounder
+
     }
 
-    def addSensors(Map cmiMap) {
+    def addSensors( Map cmiMap ) {
 
         def sensorsJb = new JsonBuilder()
         def sensors = sensorsJb([this.addSounder(cmiMap), this.addGps(cmiMap)])
@@ -59,7 +63,7 @@ class GeoJsonService implements ITransformService {
 
     }
 
-    Map platform(Map cmiMap) {
+    Map platform( Map cmiMap ) {
 
         def platform = [:]
         def platJb = new JsonBuilder()
@@ -77,13 +81,13 @@ class GeoJsonService implements ITransformService {
             lateralOffsetFromGPStoSonar "${cmiMap.lateralOffsetFromGPStoSonar}"
         }
 
-        platform << ["sensors": this.addSensors(cmiMap)]
+        platform << [ "sensors": this.addSensors(cmiMap) ]
 
         return platform
 
     }
 
-    List<String> meta(Map cmiMap) {
+    List<String> meta( Map cmiMap ) {
 
         def dp = dps.getProvider( cmiMap.dataProvider )
 
@@ -98,8 +102,8 @@ class GeoJsonService implements ITransformService {
             }
         }
 
-        def metaProps = [convention: "CSB 1.0"]
-        metaProps << ["platform": this.platform(cmiMap)]
+        def metaProps = [ convention: "CSB 1.0" ]
+        metaProps << [ "platform": this.platform( cmiMap ) ]
 
         def propJb = new JsonBuilder()
         metaProps << propJb {
@@ -127,6 +131,7 @@ class GeoJsonService implements ITransformService {
     }
 
     List scanXyzChunk( Scanner sc, boolean skip ) {
+
         def i = 0
         def lat
         def lon
@@ -154,6 +159,7 @@ class GeoJsonService implements ITransformService {
     }
 
     String featuresChunk ( List pts ) {
+
         StringBuilder sb = new StringBuilder()
         pts.eachWithIndex { pt, i ->
             // Create the GeoJSON feature
@@ -166,6 +172,7 @@ class GeoJsonService implements ITransformService {
     }
 
     String feature( List pt ) {
+
         def featJb = new JsonBuilder()
         featJb {
             type 'Feature'
@@ -183,6 +190,7 @@ class GeoJsonService implements ITransformService {
 
     // Need to handle "dataProvider" field
     Map transform( Map entries ) throws Exception {
+
         def jsonSlurper = new JsonSlurper()
         def cmi = jsonSlurper.parseText( entries.JSON )
         List<String> metaListStr = this.meta( cmi )
@@ -213,6 +221,7 @@ class GeoJsonService implements ITransformService {
 
         def hmMsg = [ TRANSFORMED : "GeoJson conversion complete." ]
         return hmMsg
+
     }
 
 }

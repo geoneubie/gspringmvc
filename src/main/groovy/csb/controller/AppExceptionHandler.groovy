@@ -15,12 +15,12 @@ class AppExceptionHandler {
     private static final Logger logger =
             LoggerFactory.getLogger( AppExceptionHandler.class )
 
-    @ExceptionHandler(Exception.class)
-    public @ResponseBody String exceptionHandler(Throwable e) {
+    @ExceptionHandler( Exception.class )
+    public @ResponseBody String exceptionHandler( Throwable e ) {
 
         def msg = "Unknown error trying to upload your file, please contact " +
                 "the system administrator if the problem continues."
-        logger.error("handleFileUpload error", e)
+        logger.error( "handleFileUpload error", e )
         return msg;
 
     }

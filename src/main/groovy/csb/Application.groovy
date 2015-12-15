@@ -8,9 +8,9 @@ import org.springframework.context.annotation.ComponentScan
 // Note Application must be in same package as controller
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
 
-        def ctx = SpringApplication.run(Application.class, args)
+        def ctx = SpringApplication.run( Application.class, args )
 
     }
 
