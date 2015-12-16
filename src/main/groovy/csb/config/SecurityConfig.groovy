@@ -30,7 +30,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth
                 .inMemoryAuthentication()
-                .withUser( "SEAID" ).password( "SEAID" ).roles( "USER" ).and()
+                .withUser( "Sea-ID" ).password( "Sea-ID" ).roles( "USER" ).and()
                 .withUser( "LINBLAD" ).password( "LINBLAD" ).roles( "USER" ).and()
                 .withUser( "admin" ).password( "admin" ).roles( "USER", "ADMIN" )
 

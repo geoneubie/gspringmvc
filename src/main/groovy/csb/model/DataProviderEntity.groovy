@@ -14,6 +14,7 @@ class DataProviderEntity implements Serializable {
 
     private String name
     private String providerEmail
+    private String providerUrl
     private String processorEmail
     private String ownerEmail
 
@@ -22,10 +23,11 @@ class DataProviderEntity implements Serializable {
     }
 
 
-    public DataProviderEntity( String name, String providerEmail, String processorEmail, String ownerEmail ) {
+    public DataProviderEntity( String name, String providerEmail, String providerUrl, String processorEmail, String ownerEmail ) {
 
         this.name = name
         this.providerEmail = providerEmail
+        this.providerUrl = providerUrl
         this.processorEmail = processorEmail
         this.ownerEmail = ownerEmail
 
@@ -47,6 +49,14 @@ class DataProviderEntity implements Serializable {
         this.providerEmail = providerEmail
     }
 
+    public getProviderUrl() {
+        return this.providerUrl
+    }
+
+    public setProviderUrl( String providerUrl ) {
+        this.providerUrl = providerUrl
+    }
+
     public getProcessorEmail() {
         return this.processorEmail
     }
@@ -65,7 +75,7 @@ class DataProviderEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "${id}:${name}:${providerEmail}:${processorEmail}:${ownerEmail}"
+        return "${id}:${name}:${providerEmail}:${providerUrl}:${processorEmail}:${ownerEmail}"
     }
 
 }

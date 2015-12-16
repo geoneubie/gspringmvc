@@ -1,0 +1,188 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "EPSG:4326"
+        }
+    },
+    "properties": {
+        "convention": "CSB 1.0",
+        "platform": {
+            "type": "Ship",
+            "name": "White Rose of Drachs",
+            "ImoNumber": "1008140",
+            "platformStatus": "new",
+            "draft": {
+                "value": 4.6,
+                "uom": "m",
+	   			"offsetApplied": false
+            },
+            "sensors": [
+                {
+                    "type": "Sounder",
+                    "make": "Sperry Marine (L3 ELAC)",
+                    "model": "ES155100-02",
+                    "serialNumber": "136",
+	       
+                    "longitudinalOffsetFromGPStoSonar": {
+                        "value": 3.52,
+                        "uom": "m"
+                    },
+                    "lateralOffsetFromGPStoSonar": {
+                        "value": -0.76,
+                        "uom": "m"
+                    },
+                    "velocity": {
+                        "value": 1500,
+                        "uom": "m/s"
+                    }
+                },
+                {
+                    "type": "GPS",
+                    "make": "Litton Marine Systems",
+                    "model": "LMX420",
+       				"offSetApplied": false
+                }
+            ]
+        },
+        "providerContactPoint": {
+            "orgName": "Sea-ID",
+            "hasEmail": "support@sea-id.org",
+            "orgUrl": "https://www.sea-id.org",
+			"logger": "MarkIII",
+			"loggerVersion": "1.0"
+        },
+        "processorContactPoint": {
+            "hasEmail": "support@sea-id.org"
+        },
+        "ownerContactPoint": {
+            "hasEmail": "support@sea-id.org"
+        },
+        "depthUnits": "meters",
+        "timeUnits": "Epoch"
+    },
+    "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.5,
+                    "epochtime": 1440108000                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.4,
+                    "epochtime": 1440108002                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.4,
+                    "epochtime": 1440108004                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.5,
+                    "epochtime": 1440108006                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.4,
+                    "epochtime": 1440108008                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.5,
+                    "epochtime": 1440108010                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.4,
+                    "epochtime": 1440108014                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.5,
+                    "epochtime": 1440108018                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.4,
+                    "epochtime": 1440108020                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.871667,
+                        1.294000 ]
+                },
+                "properties": {
+                    "depthMeters": 9.5,
+                    "epochtime": 1440108022                }
+            },{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        38.910500,
+                        1.438667 ]
+                },
+                "properties": {
+                    "depthMeters": 6.5,
+                    "epochtime": 1440194398                }
+            }]
+}
+

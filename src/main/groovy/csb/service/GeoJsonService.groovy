@@ -63,7 +63,8 @@ class GeoJsonService implements ITransformService {
         def gps = gpsJb {
             type "GPS"
             make "${cmiMap.gpsmake}"
-            model "${cmiMap.gpsmake}"
+            model "${cmiMap.gpsmodel}"
+            offSetApplied "false"
         }
         return gps
 
@@ -76,7 +77,19 @@ class GeoJsonService implements ITransformService {
             type "Sounder"
             make "${cmiMap.soundermake}"
             model "${cmiMap.soundermodel}"
-            serialno "${cmiMap.sounderserialno}"
+            serialNumber "${cmiMap.sounderserialno}"
+            longitudinalOffsetFromGPStoSonar {
+                value cmiMap.longitudinalOffsetFromGPStoSonar
+                uom "m"
+            }
+            lateralOffsetFromGPStoSonar {
+                value cmiMap.lateralOffsetFromGPStoSonar
+                uom "m"
+            }
+            velocity {
+                value cmiMap.velocity
+                uom "m/s"
+            }
         }
         return sounder
 
@@ -98,14 +111,12 @@ class GeoJsonService implements ITransformService {
             type "Ship"
             name "${cmiMap.shipname}"
             ImoNumber "${cmiMap.imonumber}"
+            platformStatus "new"
             draft {
-                value "${cmiMap.draft}"
+                value cmiMap.draft
                 "uom" "m"
-                offsetApplied "false"
+                offsetApplied false
             }
-            velocity "${cmiMap.velocity}"
-            longitudinalOffsetFromGPStoSonar "${cmiMap.longitudinalOffsetFromGPStoSonar}"
-            lateralOffsetFromGPStoSonar "${cmiMap.lateralOffsetFromGPStoSonar}"
         }
 
         platform << [ "sensors": this.addSensors(cmiMap) ]
@@ -135,7 +146,9 @@ class GeoJsonService implements ITransformService {
         def propJb = new JsonBuilder()
         metaProps << propJb {
             providerContactPoint {
+                orgName "${dp.name}"
                 hasEmail "${dp.providerEmail}"
+                orgUrl "${dp.providerUrl}"
             }
             processorContactPoint {
                 hasEmail "${dp.processorEmail}"
@@ -144,7 +157,7 @@ class GeoJsonService implements ITransformService {
                 hasEmail "${dp.ownerEmail}"
             }
             depthUnits "meters"
-            timeUnits "UTC"
+            timeUnits "Epoch"
         }
 
         meta << [ "properties": metaProps ]
@@ -163,6 +176,7 @@ class GeoJsonService implements ITransformService {
         def lat
         def lon
         def z
+        def t
         def tokens = []
         def pts = []
 
@@ -170,10 +184,11 @@ class GeoJsonService implements ITransformService {
             String line = sc.nextLine()
             if (!skip) {
                 tokens = line.tokenize(',')
-                lat = Double.parseDouble(tokens[0])
-                lon = Double.parseDouble(tokens[1])
+                lon = Double.parseDouble(tokens[0]) //x
+                lat = Double.parseDouble(tokens[1]) //y
                 z = Double.parseDouble(tokens[2])
-                pts << [lat, lon, z]
+                t = Double.parseDouble(tokens[3])
+                pts << [lat, lon, z, t]
             } else {
                 // First line is a header, skip it and continue
                 skip = false
@@ -209,6 +224,7 @@ class GeoJsonService implements ITransformService {
             }
             properties {
                 depth pt[2]
+                time pt[3]
             }
         }
         return "        ${featJb.toString()}"

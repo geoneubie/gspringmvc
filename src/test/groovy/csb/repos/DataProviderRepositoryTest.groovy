@@ -25,15 +25,15 @@ class DataProviderRepositoryTest {
     @Transactional
     public void saveDps( ) {
 
-        dpRepository.save( new DataProviderEntity( "SEAID", "support@seaid.org", "support@seaid.org", "support@seaid.org") )
-        dpRepository.save( new DataProviderEntity( "LINBLAD", "support@expeditions.com", "support@expeditions.com", "support@expeditions.com") )
+        dpRepository.save( new DataProviderEntity( "SEAID", "support@seaid.org", "https://www.sea-id.org","support@seaid.org", "support@seaid.org") )
+        dpRepository.save( new DataProviderEntity( "LINBLAD", "support@expeditions.com", "http://www.expeditions.com","support@expeditions.com", "support@expeditions.com") )
 
         for (DataProviderEntity dpe : dpRepository.findAll()) {
             logger.debug( dpe.toString() )
         }
         DataProviderEntity dpe = dpRepository.findByName("SEAID")
 
-        assert dpe.toString() == "3:SEAID:support@seaid.org:support@seaid.org:support@seaid.org"
+        assert dpe.toString() == "3:SEAID:support@seaid.org:https://www.sea-id.org:support@seaid.org:support@seaid.org"
 
     }
 

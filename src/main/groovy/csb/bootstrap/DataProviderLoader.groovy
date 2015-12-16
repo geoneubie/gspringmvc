@@ -26,8 +26,9 @@ class DataProviderLoader implements ApplicationListener<ContextRefreshedEvent> {
             DataProviderEntity dpe
 
             dpe = new DataProviderEntity()
-            dpe.name = "SEAID"
+            dpe.name = "Sea-ID"
             dpe.providerEmail = "support@sea-id.org"
+            dpe.providerUrl = "https://www.sea-id.org"
             dpe.processorEmail = "support@sea-id.org"
             dpe.ownerEmail = "support@sea-id.org"
             idpRepository.save(dpe)
@@ -36,6 +37,7 @@ class DataProviderLoader implements ApplicationListener<ContextRefreshedEvent> {
             dpe = new DataProviderEntity()
             dpe.name = "LINBLAD"
             dpe.providerEmail = "support@expeditions.com"
+            dpe.providerUrl = "http://www.expeditions.com"
             dpe.processorEmail = "support@expeditions.com"
             dpe.ownerEmail = "support@expeditions.com"
             idpRepository.save(dpe)

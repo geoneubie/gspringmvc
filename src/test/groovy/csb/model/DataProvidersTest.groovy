@@ -27,12 +27,13 @@ class DataProvidersTest {
 
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"
+        dp.providerUrl = "https://www.sea-id.org"
         dp.processorEmail = "support@sea-id.org"
         dp.ownerEmail = "support@sea-id.org"
 
         DataProviders dps = new DataProviders()
         dps.addProvider("SEAID", dp)
-        assert dps.getProvider("SEAID").toString() == "0:SEAID:support@sea-id.org:support@sea-id.org:support@sea-id.org"
+        assert dps.getProvider("SEAID").toString() == "0:SEAID:support@sea-id.org:https://www.sea-id.org:support@sea-id.org:support@sea-id.org"
     }
 
     @Test
@@ -47,8 +48,8 @@ class DataProvidersTest {
     @Transactional
     void dataProvidersDb() {
 
-        dpRepository.save( new DataProviderEntity( "DP1", "support@dp1.org", "support@dp1.org", "support@dp1.org") )
-        dpRepository.save( new DataProviderEntity( "DP2", "support@dp2.com", "support@dp2.com", "support@dp2.com") )
+        dpRepository.save( new DataProviderEntity( "DP1", "support@dp1.org", "https://www.dp1.org", "support@dp1.org", "support@dp1.org") )
+        dpRepository.save( new DataProviderEntity( "DP2", "support@dp2.com", "https://www.dp2.com", "support@dp2.com", "support@dp2.com") )
 
         for (DataProviderEntity dpe : dpRepository.findAll()) {
             logger.debug( dpe.toString() )
@@ -57,7 +58,7 @@ class DataProvidersTest {
         DataProviders dps = new DataProviders()
         dps.addProvider( dpe.name, dpe)
 
-        assert dpe.toString() == "1:DP1:support@dp1.org:support@dp1.org:support@dp1.org"
+        assert dpe.toString() == "1:DP1:support@dp1.org:https://www.dp1.org:support@dp1.org:support@dp1.org"
         assert dps.getHmProviders().size() == 1
 
     }

@@ -24,6 +24,7 @@ class GeoJsonServiceTest {
 
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"
+        dp.providerUrl = "https://www.sea-id.org"
         dp.processorEmail = "support@sea-id.org"
         dp.ownerEmail = "support@sea-id.org"
 
@@ -79,9 +80,9 @@ class GeoJsonServiceTest {
     @Test
     public void feature() {
 
-        def pt = ["42.8339", "-50.2883", "428.3" ]
+        def pt = ["42.8339", "-50.2883", "428.3", "1028889" ]
 
-        assert geojsonService.feature( pt ) == '        {"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}}'
+        assert geojsonService.feature( pt ) == '        {"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3","time":"1028889"}}'
 
     }
 
