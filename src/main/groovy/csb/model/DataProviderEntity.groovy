@@ -33,6 +33,10 @@ class DataProviderEntity implements Serializable {
 
     }
 
+    public getId() {
+        return this.id
+    }
+
     public getName() {
         return this.name
     }
