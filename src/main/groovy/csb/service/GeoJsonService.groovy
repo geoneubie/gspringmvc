@@ -1,5 +1,5 @@
 package csb.service
-import csb.model.DataProviderEntity
+
 import csb.model.DataProviders
 import csb.repos.IDataProviderRepository
 import groovy.json.JsonBuilder
@@ -13,24 +13,18 @@ import org.springframework.stereotype.Service
 class GeoJsonService implements ITransformService {
 
     @Autowired
-    private IDataProviderRepository dpRepository
+    private IDataProviderRepository idpRepository
+
+    @Autowired
+    private DataProviderService dpService
 
     private DataProviders dps
-
-    public GeoJsonService( DataProviders dps ) {
-        this.dps = dps
-    }
 
     public GeoJsonService() {
 
     }
 
-    private void loadDataProviders() {
-
-        DataProviders dps = new DataProviders()
-        for (DataProviderEntity dpe : dpRepository.findAll()) {
-            dps.addProvider( dpe.name, dpe)
-        }
+    public GeoJsonService( DataProviders dps ) {
 
         this.dps = dps
 
@@ -254,7 +248,7 @@ class GeoJsonService implements ITransformService {
     }
 
     Map transform( Map entries ) throws Exception {
-        loadDataProviders()
+        this.dps = dpService.getAllDataProviders()
 
         def jsonSlurper = new JsonSlurper()
         def cmi = jsonSlurper.parseText( entries.JSON )

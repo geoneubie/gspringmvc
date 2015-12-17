@@ -19,7 +19,7 @@ class DataProvidersTest {
             LoggerFactory.getLogger( DataProvidersTest.class )
 
     @Autowired
-    private IDataProviderRepository dpRepository
+    private IDataProviderRepository idpRepository
 
     @Test
     void dataProvidersCreate() {
@@ -38,23 +38,15 @@ class DataProvidersTest {
 
     @Test
     @Transactional
-    public void deleteDps( ) {
-        // Cleanup
-        dpRepository.deleteAll()
-        dpRepository.flush()
-    }
-
-    @Test
-    @Transactional
     void dataProvidersDb() {
 
-        dpRepository.save( new DataProviderEntity( "DP1", "support@dp1.org", "https://www.dp1.org", "support@dp1.org", "support@dp1.org") )
-        dpRepository.save( new DataProviderEntity( "DP2", "support@dp2.com", "https://www.dp2.com", "support@dp2.com", "support@dp2.com") )
+        idpRepository.save( new DataProviderEntity( "DP1", "support@dp1.org", "https://www.dp1.org", "support@dp1.org", "support@dp1.org") )
+        idpRepository.save( new DataProviderEntity( "DP2", "support@dp2.com", "https://www.dp2.com", "support@dp2.com", "support@dp2.com") )
 
-        for (DataProviderEntity dpe : dpRepository.findAll()) {
+        for (DataProviderEntity dpe : idpRepository.findAll()) {
             logger.debug( dpe.toString() )
         }
-        DataProviderEntity dpe = dpRepository.findByName("DP1")
+        DataProviderEntity dpe = idpRepository.findByName("DP1")
         DataProviders dps = new DataProviders()
         dps.addProvider( dpe.name, dpe)
 

@@ -1,19 +1,21 @@
 package csb.config
+
 import csb.aspect.TransformLogger
 import csb.model.Staging
+import csb.service.DataProviderService
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.orm.jpa.EntityScan
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.scheduling.annotation.EnableAsync
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
 @EnableAsync
@@ -44,6 +46,7 @@ class AppConfig {
         return this.activeProfile
     }
 
+    // Model beans
     @Bean
     public Staging staging() {
 
@@ -53,6 +56,7 @@ class AppConfig {
 
     }
 
+    // Service beans
     @Bean
     public ITransformService ss() {
 
@@ -69,6 +73,15 @@ class AppConfig {
 
     }
 
+    @Bean
+    public DataProviderService dpService() {
+
+        DataProviderService dpService = new DataProviderService( )
+        return dpService
+
+    }
+
+    // Aspect beans
     @Bean
     public TransformLogger tLogger() {
 

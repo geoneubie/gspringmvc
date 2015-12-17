@@ -32,12 +32,12 @@ configurations.all {
 }
 
 dependencies {
-    // Bridge logging from JCL to SLF4j
-    compile ( "org.slf4j:jcl-over-slf4j" )
-    compile ( "ch.qos.logback:logback-classic" )
 
     // Groovy
     compile( "org.codehaus.groovy:groovy-all" )
+
+    // Spring boot logging
+    compile ( "org.springframework.boot:spring-boot-starter-logging" )
 
     // Spring boot
     compile( "org.springframework.boot:spring-boot-starter-web" )
@@ -58,9 +58,6 @@ dependencies {
     compile( "org.aspectj:aspectjrt" )
     compile( "org.aspectj:aspectjtools" )
     compile( "org.aspectj:aspectjweaver" )
-
-    // Spring data rest
-    //compile("org.springframework.data:spring-data-rest-webmvc:2.4.1.RELEASE")
 
     // JTS - If/when were ready
     //compile("com.vividsolutions:jts")
