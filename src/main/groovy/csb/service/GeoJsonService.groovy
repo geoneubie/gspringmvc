@@ -17,10 +17,6 @@ class GeoJsonService implements ITransformService {
 
     private DataProviders dps
 
-    public void setDataProviderRepository(IDataProviderRepository idpRepository) {
-        this.idpRepository = idpRepository
-    }
-
     public GeoJsonService( DataProviders dps ) {
         this.dps = dps
     }
@@ -64,7 +60,7 @@ class GeoJsonService implements ITransformService {
             type "GPS"
             make "${cmiMap.gpsmake}"
             model "${cmiMap.gpsmodel}"
-            offSetApplied "false"
+            offSetApplied false
         }
         return gps
 
@@ -73,21 +69,40 @@ class GeoJsonService implements ITransformService {
     def addSounder( Map cmiMap ) {
 
         def sounderJb = new JsonBuilder()
+        def lonOffset
+        if ( cmiMap.longitudinalOffsetFromGPStoSonar != "" ) {
+            lonOffset = new Double( cmiMap.longitudinalOffsetFromGPStoSonar )
+        } else {
+            lonOffset = ""
+        }
+        def latOffset
+        if ( cmiMap.lateralOffsetFromGPStoSonar != "" ) {
+            latOffset = new Double( cmiMap.lateralOffsetFromGPStoSonar )
+        } else {
+            latOffset = ""
+        }
+        def v
+        if ( cmiMap.velocity != "" ) {
+            v = new Double( cmiMap.velocity )
+        } else {
+            v = ""
+        }
+
         def sounder = sounderJb {
             type "Sounder"
             make "${cmiMap.soundermake}"
             model "${cmiMap.soundermodel}"
             serialNumber "${cmiMap.sounderserialno}"
             longitudinalOffsetFromGPStoSonar {
-                value cmiMap.longitudinalOffsetFromGPStoSonar
+                value lonOffset
                 uom "m"
             }
             lateralOffsetFromGPStoSonar {
-                value cmiMap.lateralOffsetFromGPStoSonar
+                value latOffset
                 uom "m"
             }
             velocity {
-                value cmiMap.velocity
+                value v
                 uom "m/s"
             }
         }
@@ -107,13 +122,20 @@ class GeoJsonService implements ITransformService {
 
         def platform = [:]
         def platJb = new JsonBuilder()
+        def d
+        if ( cmiMap.draft != "" ) {
+            d = new Double( cmiMap.draft )
+        } else {
+            d = ""
+        }
+
         platform << platJb {
             type "Ship"
             name "${cmiMap.shipname}"
             ImoNumber "${cmiMap.imonumber}"
             platformStatus "new"
             draft {
-                value cmiMap.draft
+                value d
                 "uom" "m"
                 offsetApplied false
             }

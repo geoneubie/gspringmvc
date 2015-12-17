@@ -44,15 +44,6 @@ class AppConfig {
         return this.activeProfile
     }
 
-//    @Bean
-//    public DataProviders dps() {
-//
-//        logger.debug "DataProviders bean construction..."
-//        DataProviders dps = new DataProviders( config.data.providers )
-//        return dps
-//
-//    }
-
     @Bean
     public Staging staging() {
 

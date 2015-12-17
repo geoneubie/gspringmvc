@@ -1,5 +1,4 @@
 package csb.service
-
 import csb.model.DataProviderEntity
 import csb.model.DataProviders
 import groovy.json.JsonSlurper
@@ -38,10 +37,11 @@ class GeoJsonServiceTest {
     @Test
     public void meta() {
 
-        def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"SEAID"}'
+        def csbMetadataInput = '{"shipname":"Kilo Moana","soundermake":"","imonumber":"","soundermodel":"","draft":"4.6","sounderserialno":"","longitudinalOffsetFromGPStoSonar":"","lateralOffsetFromGPStoSonar":"","velocity":"","gpsmake":"","gpsmodel":"","dataProvider":"SEAID"}'
         def cmiMap = (new JsonSlurper()).parseText( csbMetadataInput )
         List<String> metaHdrList = geojsonService.meta( cmiMap )
 
+        assert cmiMap.draft == "4.6"
         assert metaHdrList[0].length() > 0 && metaHdrList[1].length() == 2
 
     }
@@ -85,14 +85,6 @@ class GeoJsonServiceTest {
         assert geojsonService.feature( pt ) == '        {"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3","time":"1028889"}}'
 
     }
-
-//    @Test Doesn't work for unknown reasons
-//    public void featuresChunk() {
-//        def pts = [ ["42.8339", "-50.2883", "428.3"], ["43.8339", "-49.2883", "429.3"] ]
-//        String testCase = '{"type":"Feature","geometry":{"type":"Point","coordinates":["-50.2883","42.8339"]},"properties":{"depth":"428.3"}},' + System.getProperty("line.separator")
-//        testCase += '{"type":"Feature","geometry":{"type":"Point","coordinates":["-49.2883","43.8339"]},"properties":{"depth":"429.3"}'
-//        assertEquals geojsonService.featuresChunk( pts ), testCase
-//    }
 
     @Test
     public void writeAllFeatures() {
