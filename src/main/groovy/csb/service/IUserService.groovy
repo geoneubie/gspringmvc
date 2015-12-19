@@ -1,4 +1,4 @@
-package csb.service.security
+package csb.service
 
 import csb.model.security.User
 

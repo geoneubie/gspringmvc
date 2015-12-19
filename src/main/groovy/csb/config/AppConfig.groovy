@@ -6,8 +6,7 @@ import csb.service.DataProviderService
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
-import csb.service.security.CurrentUserDetailsService
-import csb.service.security.UserService
+import csb.service.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -15,7 +14,6 @@ import org.springframework.boot.orm.jpa.EntityScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
-import org.springframework.context.annotation.Import
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.transaction.annotation.EnableTransactionManagement
@@ -24,8 +22,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableAsync
 @EnableAspectJAutoProxy
 @EnableAutoConfiguration
-@EntityScan(basePackages = ["csb.model"] )
-@EnableJpaRepositories(basePackages = ["csb.repos"] )
+@EntityScan(basePackages = [ "csb.model", "csb.model.security" ] )
+@EnableJpaRepositories(basePackages = [ "csb.repos" ] )
 @EnableTransactionManagement
 class AppConfig {
 

@@ -18,7 +18,7 @@ class DataProviderService {
             LoggerFactory.getLogger( DataProviderService.class )
 
     @Autowired
-    private IDataProviderRepository idpRepository;
+    private IDataProviderRepository idpRepository
 
     @Transactional( readOnly=true )
     public DataProvider distinctFindByName( name ) {

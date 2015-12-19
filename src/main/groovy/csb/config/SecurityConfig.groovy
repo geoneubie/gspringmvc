@@ -1,8 +1,8 @@
 package csb.config
 
+import csb.service.UserService
 import csb.service.security.CurrentUserDetailsService
 import csb.service.security.CurrentUserService
-import csb.service.security.UserService
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,37 +12,27 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@EnableJpaRepositories(basePackages = ["csb.repos"] )
 @EnableWebMvcSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-//    @Bean
-//    public UserService userService() {
-//
-//        UserService userService = new UserService()
-//        return userService
-//
-//    }
 
     @Bean
     public CurrentUserDetailsService userDetailsService(){
 
-        CurrentUserDetailsService userDetailsService = new CurrentUserDetailsService( )
+        CurrentUserDetailsService userDetailsService = new CurrentUserDetailsService()
         return userDetailsService
 
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
 
         PasswordEncoder encoder = new BCryptPasswordEncoder()
         return encoder
@@ -64,7 +54,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth
                 .userDetailsService( userDetailsService() )
-                .passwordEncoder( new BCryptPasswordEncoder() )
+                .passwordEncoder( passwordEncoder() )
 
     }
 

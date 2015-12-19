@@ -29,7 +29,7 @@ switch (activeProfile) {
         logger("csb", DEBUG, [ "STDOUT", "FILE" ], false)
         break
     case "test":
-        logger("csb", INFO, [ "STDOUT", "FILE" ], false)
+        logger("csb", DEBUG, [ "STDOUT", "FILE" ], false)
         break
     case "prod":
         logger("csb", WARN, [ "FILE" ], false)

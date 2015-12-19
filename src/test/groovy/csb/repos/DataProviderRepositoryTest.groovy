@@ -21,7 +21,7 @@ class DataProviderRepositoryTest {
     private DataProviderService dpService
 
     @Test
-    public void saveDps( ) {
+    public void saveDps() {
 
         def dpe
         dpe = new DataProvider( "SEAID", "support@seaid.org", "https://www.sea-id.org","support@seaid.org", "support@seaid.org" )
@@ -36,7 +36,7 @@ class DataProviderRepositoryTest {
 
         dpe = dpService.distinctFindByName( "SEAID" )
 
-        assert dpe.toString() == "3:SEAID:support@seaid.org:https://www.sea-id.org:support@seaid.org:support@seaid.org"
+        assert dpe.toString() == "1:SEAID:support@seaid.org:https://www.sea-id.org:support@seaid.org:support@seaid.org"
 
     }
 
