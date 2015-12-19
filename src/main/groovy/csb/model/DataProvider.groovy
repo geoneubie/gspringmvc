@@ -79,7 +79,7 @@ class DataProvider implements Serializable {
 
     @Override
     public String toString() {
-        return "${id}:${name}:${providerEmail}:${providerUrl}:${processorEmail}:${ownerEmail}"
+        return "${name}:${providerEmail}:${providerUrl}:${processorEmail}:${ownerEmail}"
     }
 
 }

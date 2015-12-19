@@ -1,5 +1,4 @@
 package csb.repos
-
 import csb.config.AppConfig
 import csb.config.SecurityConfig
 import csb.model.security.Role
@@ -10,7 +9,6 @@ import org.junit.runner.RunWith
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
@@ -22,37 +20,30 @@ class UserRepositoryTest {
             LoggerFactory.getLogger( UserRepositoryTest.class )
 
     @Autowired
-    private IUserRepository iuserRepository
-
-    @Autowired
-    private PasswordEncoder passwordEncoder
-
-    @Test
-    public void encrypt() {
-        String encoded = passwordEncoder.encode( "Sea-ID" )
-        logger.debug("Encoded password: ${encoded}")
-
-    }
+    private UserService userService
 
     @Test
     public void saveUser() {
-
-        UserService userService = new UserService()
 
         User user
         Role role = Role.USER
 
         user = new User()
-        user.username = "Sea-ID"
+        user.username = "Dave"
         user.enabled = true
-        user.password = passwordEncoder.encode( "Sea-ID" )
+        user.password = "Dave"
         user.role = role
 
-        user = iuserRepository.save( user )
-        logger.debug("Saved User - name: ${user.username}")
+        userService.save( user )
+        logger.debug("Saved User: ${user}")
         assert( user != null )
+
     }
 
+    @Test
+    public void seed() {
+        userService.seed()
+    }
 }
 
 

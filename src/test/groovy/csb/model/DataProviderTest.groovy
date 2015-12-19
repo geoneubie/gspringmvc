@@ -17,7 +17,7 @@ class DataProviderTest {
         dp.processorEmail = "support@sea-id.org"
         dp.ownerEmail = "support@sea-id.org"
 
-        assert dp.toString() == "0:SEAID:support@sea-id.org:https://www.sea-id.org:support@sea-id.org:support@sea-id.org"
+        assert dp.toString() == "SEAID:support@sea-id.org:https://www.sea-id.org:support@sea-id.org:support@sea-id.org"
     }
 
 }

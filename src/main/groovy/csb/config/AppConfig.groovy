@@ -69,7 +69,7 @@ class AppConfig {
     @Bean
     public ITransformService gs() {
 
-        ITransformService gs = new GeoJsonService( )
+        ITransformService gs = new GeoJsonService()
         return gs
 
     }
@@ -77,8 +77,16 @@ class AppConfig {
     @Bean
     public DataProviderService dpService() {
 
-        DataProviderService dpService = new DataProviderService( )
+        DataProviderService dpService = new DataProviderService()
         return dpService
+
+    }
+
+    @Bean
+    public UserService userService() {
+
+        UserService userService = new UserService()
+        return userService
 
     }
 

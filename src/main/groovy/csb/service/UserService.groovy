@@ -7,10 +7,11 @@ import csb.repos.IUserRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.password.PasswordEncoder
 
 import org.springframework.transaction.annotation.Transactional
 
-class UserService implements IUserService {
+class UserService {
 
     private static final Logger logger =
             LoggerFactory.getLogger( UserService.class )
@@ -18,32 +19,34 @@ class UserService implements IUserService {
     @Autowired
     private IUserRepository iuserRepository
 
+    @Autowired
+    private PasswordEncoder passwordEncoder
 
-    @Override
-    public Optional<User> getUserById( long id ) {
+    @Transactional( readOnly=true )
+    public User getUserById( long id ) {
 
         logger.debug( "Getting user id ${id}" )
-        return Optional.ofNullable( iuserRepository.findOne( id ) )
+        return iuserRepository.findOne( id )
 
     }
 
-    @Override
-    public Optional<User> getUserByUsername( String username ) {
+    @Transactional( readOnly=true )
+    public User findOneByUsername( String username ) {
 
         logger.debug( "Getting user by username ${username}" )
         return iuserRepository.findOneByUsername( username )
 
     }
 
-    @Override
-    public Collection<User> getAllUsers() {
+    @Transactional( readOnly=true )
+    public Collection<User> getAllSortedUsers() {
 
-        logger.debug("Getting all users")
+        logger.debug("Getting all users and sorting them")
         return iuserRepository.findAll( new Sort( "username" ) )
 
     }
 
-    public User create( User user ) {
+    public User createSaltedUserWIP( User user ) {
         logger.debug( "Create User - username: ${user.username}" )
 
         //user.setPassword( passwordEncoder.encode(user.getPassword() ) )
@@ -67,21 +70,20 @@ class UserService implements IUserService {
         user = new User()
         user.username = "Sea-ID"
         user.enabled = true
-        user.password = "Sea-ID"
+        user.password = passwordEncoder.encode( "Sea-ID" )
         user.role = role
-        user = this.create( user )
-        logger.debug( "Saved User - username: ${user.username}" )
+
+        logger.debug( "Saved User - username: ${user}" )
         this.save( user )
 
         user = new User()
         user.username = "LINBLADT"
         user.enabled = true
-        user.password = "LINBLADT"
+        user.password = passwordEncoder.encode( "LINBLADT" )
         user.role = role
-        user = this.create( user )
-        logger.debug( "Saved User - username: ${user.username}" )
-        this.save( user )
 
+        this.save( user )
+        logger.debug( "Saved User - username: ${user}" )
     }
 
 }

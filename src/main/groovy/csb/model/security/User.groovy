@@ -88,4 +88,9 @@ class User implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "${username}:${password}:${enabled}:${role}"
+    }
+
 }

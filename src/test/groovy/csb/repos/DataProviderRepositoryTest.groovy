@@ -36,7 +36,7 @@ class DataProviderRepositoryTest {
 
         dpe = dpService.distinctFindByName( "SEAID" )
 
-        assert dpe.toString() == "1:SEAID:support@seaid.org:https://www.sea-id.org:support@seaid.org:support@seaid.org"
+        assert dpe.toString() == "SEAID:support@seaid.org:https://www.sea-id.org:support@seaid.org:support@seaid.org"
 
     }
 

@@ -33,7 +33,7 @@ class DataProvidersTest {
 
         DataProviders dps = new DataProviders()
         dps.addProvider("SEAID", dp)
-        assert dps.getProvider("SEAID").toString() == "0:SEAID:support@sea-id.org:https://www.sea-id.org:support@sea-id.org:support@sea-id.org"
+        assert dps.getProvider("SEAID").toString() == "SEAID:support@sea-id.org:https://www.sea-id.org:support@sea-id.org:support@sea-id.org"
     }
 
     @Test
@@ -50,7 +50,7 @@ class DataProvidersTest {
         DataProviders dps = new DataProviders()
         dps.addProvider( dpe.name, dpe)
 
-        assert dpe.toString() == "1:DP1:support@dp1.org:https://www.dp1.org:support@dp1.org:support@dp1.org"
+        assert dpe.toString() == "DP1:support@dp1.org:https://www.dp1.org:support@dp1.org:support@dp1.org"
         assert dps.getHmProviders().size() == 1
 
     }
