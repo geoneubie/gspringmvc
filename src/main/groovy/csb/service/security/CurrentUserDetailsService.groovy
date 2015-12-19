@@ -18,14 +18,14 @@ class CurrentUserDetailsService implements UserDetailsService {
             LoggerFactory.getLogger( CurrentUserDetailsService.class )
 
     @Autowired
-    private IUserRepository iUserRepository
+    private UserService userService
 
 
     @Override
     public CurrentUser loadUserByUsername( String username ) throws UsernameNotFoundException {
 
         logger.debug( "Authenticating user with username=${username}" )
-        User user = iUserRepository.findOneByUsername( username )
+        User user = userService.findOneByUsername( username )
 
         return new CurrentUser( user )
 

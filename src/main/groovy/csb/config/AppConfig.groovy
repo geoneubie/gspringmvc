@@ -82,14 +82,6 @@ class AppConfig {
 
     }
 
-    @Bean
-    public UserService userService() {
-
-        UserService userService = new UserService()
-        return userService
-
-    }
-
     // Aspect beans
     @Bean
     public TransformLogger tLogger() {

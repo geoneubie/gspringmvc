@@ -46,17 +46,9 @@ class UserService {
 
     }
 
-    public User createSaltedUserWIP( User user ) {
-        logger.debug( "Create User - username: ${user.username}" )
-
-        //user.setPassword( passwordEncoder.encode(user.getPassword() ) )
-        return user
-
-    }
-
     @Transactional
     public void save( User user ) {
-
+        user.password = passwordEncoder.encode(user.getPassword() )
         iuserRepository.save( user )
         logger.debug("Saved User - name: ${user.username}")
 
@@ -70,7 +62,7 @@ class UserService {
         user = new User()
         user.username = "Sea-ID"
         user.enabled = true
-        user.password = passwordEncoder.encode( "Sea-ID" )
+        user.password = "Sea-ID"
         user.role = role
 
         logger.debug( "Saved User - username: ${user}" )
@@ -79,7 +71,7 @@ class UserService {
         user = new User()
         user.username = "LINBLADT"
         user.enabled = true
-        user.password = passwordEncoder.encode( "LINBLADT" )
+        user.password = "LINBLADT"
         user.role = role
 
         this.save( user )
