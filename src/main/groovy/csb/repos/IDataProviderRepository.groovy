@@ -1,6 +1,6 @@
 package csb.repos
 
-import csb.model.DataProviderEntity
+import csb.model.DataProvider
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut
 import org.springframework.cache.annotation.Cacheable
@@ -9,17 +9,17 @@ import org.springframework.transaction.annotation.Transactional
 
 
 @Transactional
-interface IDataProviderRepository extends JpaRepository<DataProviderEntity, Long> {
+interface IDataProviderRepository extends JpaRepository<DataProvider, Long> {
 
     // Specific custom query adds
     @Cacheable( value="dpeCache" )
-    DataProviderEntity findByName( String name )
+    DataProvider findByName( String name )
 
     @Cacheable( value="dpeCache" )
-    List<DataProviderEntity> findAll()
+    List<DataProvider> findAll()
 
     @CachePut( value="dpeCache", key="#result.id" )
-    DataProviderEntity save( DataProviderEntity dpe )
+    DataProvider save( DataProvider dpe )
 
     @CacheEvict( value="dpeCache" )
     void deleteAll()

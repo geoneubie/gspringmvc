@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class DataProviders {
 
     private static final Logger logger =
-            LoggerFactory.getLogger DataProviders.class
+            LoggerFactory.getLogger( DataProviders.class )
 
     def hmProviders = new HashMap()
 
@@ -25,7 +25,7 @@ class DataProviders {
     void addProvider( String name, Map dpConfigMap ) {
 
         logger.debug( "Adding from Map" )
-        def dp = new DataProviderEntity()
+        def dp = new DataProvider()
         dp.name = "${dpConfigMap.name}"
         dp.providerEmail = "${dpConfigMap.providerEmail}"
         dp.processorEmail = "${dpConfigMap.processorEmail}"
@@ -35,14 +35,14 @@ class DataProviders {
     }
 
 
-    void addProvider( String name, DataProviderEntity dp ) {
+    void addProvider( String name, DataProvider dp ) {
 
         logger.debug( "Adding from DataProvider" )
         this.hmProviders.put(name, dp)
 
     }
 
-    DataProviderEntity getProvider( String name ) {
+    DataProvider getProvider( String name ) {
         return this.hmProviders.get( name )
     }
 }

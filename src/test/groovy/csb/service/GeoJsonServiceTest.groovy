@@ -1,5 +1,5 @@
 package csb.service
-import csb.model.DataProviderEntity
+import csb.model.DataProvider
 import csb.model.DataProviders
 import groovy.json.JsonSlurper
 import org.junit.Test
@@ -19,7 +19,7 @@ class GeoJsonServiceTest {
     public GeoJsonServiceTest() {
 
         //Test set-up
-        DataProviderEntity dp = new DataProviderEntity()
+        DataProvider dp = new DataProvider()
 
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"

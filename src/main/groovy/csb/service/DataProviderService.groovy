@@ -1,7 +1,6 @@
 package csb.service
 
-import csb.controller.FileUploadController
-import csb.model.DataProviderEntity
+import csb.model.DataProvider
 import csb.model.DataProviders
 import csb.repos.IDataProviderRepository
 import org.slf4j.Logger
@@ -22,14 +21,14 @@ class DataProviderService {
     private IDataProviderRepository idpRepository;
 
     @Transactional( readOnly=true )
-    public DataProviderEntity distinctFindByName( name ) {
+    public DataProvider distinctFindByName( name ) {
 
         return idpRepository.findByName( name )
 
     }
 
     @Transactional( readOnly=true )
-    public List<DataProviderEntity> findAll() {
+    public List<DataProvider> findAll() {
 
         return idpRepository.findAll()
 
@@ -40,7 +39,7 @@ class DataProviderService {
     public DataProviders getAllDataProviders() {
 
         DataProviders dps = new DataProviders()
-        for ( DataProviderEntity dpe : idpRepository.findAll() ) {
+        for ( DataProvider dpe : idpRepository.findAll() ) {
             dps.addProvider( dpe.name, dpe)
         }
 
@@ -49,7 +48,7 @@ class DataProviderService {
     }
 
     @Transactional
-    public void save( DataProviderEntity dpe ) {
+    public void save( DataProvider dpe ) {
 
         idpRepository.save( dpe )
         logger.debug("Saved DataProvider - name: ${dpe.name}")
@@ -59,9 +58,9 @@ class DataProviderService {
     @Transactional
     public void seed() {
 
-        DataProviderEntity dpe
+        DataProvider dpe
 
-        dpe = new DataProviderEntity()
+        dpe = new DataProvider()
         dpe.name = "Sea-ID"
         dpe.providerEmail = "support@sea-id.org"
         dpe.providerUrl = "https://www.sea-id.org"
@@ -70,7 +69,7 @@ class DataProviderService {
         idpRepository.save(dpe)
         logger.debug( "Saved DataProvider - name: ${dpe.name}" )
 
-        dpe = new DataProviderEntity()
+        dpe = new DataProvider()
         dpe.name = "LINBLAD"
         dpe.providerEmail = "support@expeditions.com"
         dpe.providerUrl = "http://www.expeditions.com"

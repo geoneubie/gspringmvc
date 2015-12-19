@@ -48,8 +48,12 @@ dependencies {
 
     // JPA
     compile( "org.springframework.boot:spring-boot-starter-data-jpa" )
-    compile( "com.h2database:h2" )
     compile( "org.springframework:spring-tx" )
+
+    compile( "com.h2database:h2" ) // dev
+
+    compile( "org.apache.commons:commons-dbcp2" )
+    runtime( "org.postgresql:postgresql") // test
 
     // Spring boot security
     compile( "org.springframework.boot:spring-boot-starter-security" )
@@ -97,6 +101,6 @@ bootRun {
         if (!profileSet) { argsList.add("-Dspring.profiles.active=dev") }
         jvmArgs = argsList
     } else {
-        jvmArgs = [ "-Dspring.profiles.active=dev" ]
+        jvmArgs = [ "-Dspring.profiles.active=test" ]
     }
 }

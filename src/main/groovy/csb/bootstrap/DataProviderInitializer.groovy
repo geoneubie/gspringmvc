@@ -20,11 +20,11 @@ class DataProviderInitializer implements ApplicationListener<ContextRefreshedEve
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-
-
         if (AppConfig.activeProfile != "prod") {
             logger.debug( "Bootstrapping initial DataProviderEntities..." )
             dpService.seed()
         }
+
     }
+
 }

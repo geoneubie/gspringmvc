@@ -6,10 +6,10 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class DataProviderEntity implements Serializable {
+class DataProvider implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private long id
 
     private String name
@@ -18,12 +18,12 @@ class DataProviderEntity implements Serializable {
     private String processorEmail
     private String ownerEmail
 
-    protected DataProviderEntity() {
+    protected DataProvider() {
 
     }
 
 
-    public DataProviderEntity( String name, String providerEmail, String providerUrl, String processorEmail, String ownerEmail ) {
+    public DataProvider( String name, String providerEmail, String providerUrl, String processorEmail, String ownerEmail ) {
 
         this.name = name
         this.providerEmail = providerEmail

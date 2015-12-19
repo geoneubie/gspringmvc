@@ -1,6 +1,6 @@
 package csb.repos
 import csb.config.AppConfig
-import csb.model.DataProviderEntity
+import csb.model.DataProvider
 import csb.service.DataProviderService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,10 +24,10 @@ class DataProviderRepositoryTest {
     public void saveDps( ) {
 
         def dpe
-        dpe = new DataProviderEntity( "SEAID", "support@seaid.org", "https://www.sea-id.org","support@seaid.org", "support@seaid.org" )
+        dpe = new DataProvider( "SEAID", "support@seaid.org", "https://www.sea-id.org","support@seaid.org", "support@seaid.org" )
         dpService.save( dpe )
 
-        dpe = new DataProviderEntity( "LINBLAD", "support@expeditions.com", "http://www.expeditions.com","support@expeditions.com", "support@expeditions.com" )
+        dpe = new DataProvider( "LINBLAD", "support@expeditions.com", "http://www.expeditions.com","support@expeditions.com", "support@expeditions.com" )
         dpService.save( dpe )
 
         dpService.findAll().each { p ->

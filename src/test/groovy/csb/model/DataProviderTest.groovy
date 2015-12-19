@@ -9,7 +9,7 @@ class DataProviderTest {
 
     @Test
     void dataProviderCreate() {
-        DataProviderEntity dp = new DataProviderEntity()
+        DataProvider dp = new DataProvider()
 
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"

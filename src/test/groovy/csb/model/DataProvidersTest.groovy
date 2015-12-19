@@ -23,7 +23,7 @@ class DataProvidersTest {
 
     @Test
     void dataProvidersCreate() {
-        DataProviderEntity dp = new DataProviderEntity()
+        DataProvider dp = new DataProvider()
 
         dp.name = "SEAID"
         dp.providerEmail = "support@sea-id.org"
@@ -40,13 +40,13 @@ class DataProvidersTest {
     @Transactional
     void dataProvidersDb() {
 
-        idpRepository.save( new DataProviderEntity( "DP1", "support@dp1.org", "https://www.dp1.org", "support@dp1.org", "support@dp1.org") )
-        idpRepository.save( new DataProviderEntity( "DP2", "support@dp2.com", "https://www.dp2.com", "support@dp2.com", "support@dp2.com") )
+        idpRepository.save( new DataProvider( "DP1", "support@dp1.org", "https://www.dp1.org", "support@dp1.org", "support@dp1.org") )
+        idpRepository.save( new DataProvider( "DP2", "support@dp2.com", "https://www.dp2.com", "support@dp2.com", "support@dp2.com") )
 
-        for (DataProviderEntity dpe : idpRepository.findAll()) {
+        for (DataProvider dpe : idpRepository.findAll()) {
             logger.debug( dpe.toString() )
         }
-        DataProviderEntity dpe = idpRepository.findByName("DP1")
+        DataProvider dpe = idpRepository.findByName("DP1")
         DataProviders dps = new DataProviders()
         dps.addProvider( dpe.name, dpe)
 
