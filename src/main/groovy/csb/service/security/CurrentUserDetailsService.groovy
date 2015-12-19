@@ -15,14 +15,10 @@ class CurrentUserDetailsService implements UserDetailsService {
     private static final Logger logger =
             LoggerFactory.getLogger( CurrentUserDetailsService.class )
 
-    @Autowired
-    private final UserService userService
+    private UserService userService
 
-
-    public CurrentUserDetailsService( UserService userService ) {
-
+    public CurrentUserDetailsService(UserService userService) {
         this.userService = userService
-
     }
 
     @Override

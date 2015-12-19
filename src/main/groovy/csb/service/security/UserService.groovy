@@ -1,29 +1,22 @@
 package csb.service.security
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Sort
+import csb.model.security.Role
 import csb.model.security.User
 import csb.repos.IUserRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.transaction.annotation.Transactional
 
-/**
- * Created by dneufeld on 12/18/15.
- */
 class UserService implements IUserService {
 
     private static final Logger logger =
             LoggerFactory.getLogger( UserService.class )
 
-    private final IUserRepository iuserRepository
-
     @Autowired
-    public UserService( IUserRepository iuserRepository ) {
-
-        this.iuserRepository = iuserRepository
-
-    }
+    private IUserRepository iuserRepository
 
     @Override
     public Optional<User> getUserById( long id ) {
@@ -49,10 +42,33 @@ class UserService implements IUserService {
 
     }
 
+    @Transactional
     public User create( User user ) {
 
         user.setPassword( new BCryptPasswordEncoder().encode(user.getPassword() ) )
         return iuserRepository.save( user )
+
+    }
+
+    public void seed() {
+
+        User user
+
+        user = new User()
+        user.username = "Sea-ID"
+        user.enabled = true
+        user.password = "Sea-ID"
+        user.role(Role.USER)
+        user = this.create( user )
+        logger.debug( "Saved User - username: ${user.username}" )
+
+        user = new User()
+        user.username = "LINBLADT"
+        user.enabled = true
+        user.password = "LINBLADT"
+        user.role(Role.USER)
+        user = this.create( user )
+        logger.debug( "Saved User - username: ${user.username}" )
 
     }
 

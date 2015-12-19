@@ -55,7 +55,6 @@ class DataProviderService {
 
     }
 
-    @Transactional
     public void seed() {
 
         DataProvider dpe

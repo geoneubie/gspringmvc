@@ -6,6 +6,8 @@ import csb.service.DataProviderService
 import csb.service.GeoJsonService
 import csb.service.ITransformService
 import csb.service.SubmitService
+import csb.service.security.CurrentUserDetailsService
+import csb.service.security.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration

@@ -1,7 +1,8 @@
 package csb.config
 
 import csb.service.security.CurrentUserDetailsService
-import org.springframework.beans.factory.annotation.Autowired
+import csb.service.security.CurrentUserService
+import csb.service.security.UserService
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,34 +16,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
-import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@EnableJpaRepositories(basePackages = ["csb.repos"] )
 @EnableWebMvcSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CurrentUserDetailsService userDetailsService
+//    @Bean
+//    public UserService userService() {
+//
+//        UserService userService = new UserService()
+//        return userService
+//
+//    }
 
-    @Override
-    public void configure( AuthenticationManagerBuilder auth ) throws Exception {
-        auth
-                .userDetailsService( userDetailsService() )
-                .passwordEncoder( new BCryptPasswordEncoder() )
+    @Bean
+    public CurrentUserDetailsService userDetailsService(){
+
+        CurrentUserDetailsService userDetailsService = new CurrentUserDetailsService( )
+        return userDetailsService
+
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
+
         PasswordEncoder encoder = new BCryptPasswordEncoder()
         return encoder
-    }
 
-    @Bean
-    public CurrentUserDetailsService userDetailsService(){
-        CurrentUserDetailsService userDetailsService = new CurrentUserDetailsService()
-        return userDetailsService
     }
 
     @Bean
@@ -52,6 +56,15 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationSuccessHandler.setDefaultTargetUrl( "/fileupload/index.html" )
         authenticationSuccessHandler.setTargetUrlParameter( "redirect" )
         return authenticationSuccessHandler
+
+    }
+
+    @Override
+    public void configure( AuthenticationManagerBuilder auth ) throws Exception {
+
+        auth
+                .userDetailsService( userDetailsService() )
+                .passwordEncoder( new BCryptPasswordEncoder() )
 
     }
 

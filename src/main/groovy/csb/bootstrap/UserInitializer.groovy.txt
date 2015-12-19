@@ -1,6 +1,7 @@
 package csb.bootstrap
+
 import csb.config.AppConfig
-import csb.service.DataProviderService
+import csb.service.security.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,20 +10,20 @@ import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.stereotype.Component
 
 @Component
-class DataProviderInitializer implements ApplicationListener<ContextRefreshedEvent> {
+class UserInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger logger =
-            LoggerFactory.getLogger(DataProviderInitializer.class)
+            LoggerFactory.getLogger(UserInitializer.class)
 
     @Autowired
-    private DataProviderService dpService
+    private UserService userService
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         if (AppConfig.activeProfile != "prod") {
-            logger.debug( "Bootstrapping initial DataProvider entities..." )
-            dpService.seed()
+            logger.debug( "Bootstrapping initial Users..." )
+            userService.seed()
         }
 
     }
