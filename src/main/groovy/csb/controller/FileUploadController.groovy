@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile
 
 @Controller
 @ComponentScan( basePackages=[ "csb.config", "csb.bootstrap" ] )
+@RestController
 @RequestMapping ( value = "/fileupload" ) //toplevel controller endpoint
 class FileUploadController {
 
@@ -34,27 +35,29 @@ class FileUploadController {
     private AsyncGeoJsonServiceAdapter agsw
 
     @Secured( "USER" )
-    @RequestMapping( value="/ping", method=RequestMethod.GET )
-    public @ResponseBody String ping() throws Exception {
-        return "FileUploadController is alive."
+    @RequestMapping( value="/health", method=RequestMethod.GET )
+    public Map health() throws Exception {
+
+        Map hmResponse = [ "FileUploadController" : ["status" : "UP" ] ]
+        return hmResponse
+
     }
 
     @Secured( "USER" )
     @RequestMapping( value="/upload", method=RequestMethod.POST )
-    public @ResponseBody String handleFileUpload( @RequestParam( "csbMetadataInput" ) String csbMetadataInput,
+    public String handleFileUpload( @RequestParam( "csbMetadataInput" ) String csbMetadataInput,
                                                   @RequestPart( "file" ) MultipartFile file ) {
 
         logger.debug( "Upload request made." )
 
         def userEntryMap = [:]
-        String msg
+
         ValidationService<String> vs = new ValidationService<String>( csbMetadataInput )
 
         // Validate incoming metadata fields has minimum required values
         if ( vs.validate() == false ) {
             logger.debug("JSON not valid, return...")
-            msg = "You must complete all required fields."
-            return msg
+            return "You must complete all required fields."
         }
 
         userEntryMap << [ JSON: csbMetadataInput ]
@@ -73,8 +76,8 @@ class FileUploadController {
             logger.debug( "response to browser ${durationCompleted/1000} in secs" )
 
         }
-        msg = ssResultMap.TRANSFORMED
-        return msg
+
+        return ssResultMap.TRANSFORMED
 
     }
 

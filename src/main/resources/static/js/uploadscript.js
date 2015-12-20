@@ -42,6 +42,7 @@ function submitForm() {
         }
         if (ct.indexOf( 'json' ) > -1) {
           // handle json here
+          document.getElementById( "output" ).innerHTML = data;
         }
     });
     return false;
