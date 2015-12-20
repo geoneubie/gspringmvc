@@ -1,4 +1,4 @@
-package csb.service
+package csb.service.security
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Sort
 import csb.model.security.Role

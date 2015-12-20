@@ -1,7 +1,6 @@
 package csb.controller
 
-import csb.repos.IDataProviderRepository
-import csb.service.AsyncGeoJsonServiceWrapper
+import csb.service.AsyncGeoJsonServiceAdapter
 import csb.service.ITransformService
 import csb.service.ValidationService
 import org.slf4j.Logger
@@ -12,8 +11,6 @@ import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-
-import javax.servlet.http.Part
 
 /**
  * Created by dneufeld on 9/24/15.
@@ -34,7 +31,7 @@ class FileUploadController {
     private ITransformService gs
 
     @Autowired
-    private AsyncGeoJsonServiceWrapper agsw
+    private AsyncGeoJsonServiceAdapter agsw
 
     @Secured( "USER" )
     @RequestMapping( value="/ping", method=RequestMethod.GET )

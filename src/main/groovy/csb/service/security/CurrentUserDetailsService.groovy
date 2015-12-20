@@ -2,8 +2,6 @@ package csb.service.security
 
 import csb.model.security.CurrentUser
 import csb.model.security.User
-import csb.repos.IUserRepository
-import csb.service.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +17,6 @@ class CurrentUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService
-
 
     @Override
     public CurrentUser loadUserByUsername( String username ) throws UsernameNotFoundException {

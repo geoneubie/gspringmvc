@@ -1,6 +1,6 @@
 package csb.config
 
-import csb.service.AsyncGeoJsonServiceWrapper
+import csb.service.AsyncGeoJsonServiceAdapter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.task.TaskExecutor
@@ -14,9 +14,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 @EnableAsync
 class AsyncConfig {
     @Bean
-    public AsyncGeoJsonServiceWrapper agsw() {
+    public AsyncGeoJsonServiceAdapter agsw() {
 
-        AsyncGeoJsonServiceWrapper agsw = new AsyncGeoJsonServiceWrapper( )
+        AsyncGeoJsonServiceAdapter agsw = new AsyncGeoJsonServiceAdapter( )
         return agsw
 
     }

@@ -3,7 +3,7 @@ import csb.config.AppConfig
 import csb.config.SecurityConfig
 import csb.model.security.Role
 import csb.model.security.User
-import csb.service.UserService
+import csb.service.security.UserService
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.slf4j.Logger

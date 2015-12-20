@@ -1,6 +1,6 @@
 package csb.bootstrap
 import csb.config.AppConfig
-import csb.service.UserService
+import csb.service.security.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

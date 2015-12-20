@@ -2,6 +2,7 @@ package csb.service
 
 import csb.model.DataProviders
 import csb.repos.IDataProviderRepository
+import csb.util.CsbUtil
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
@@ -63,24 +64,10 @@ class GeoJsonService implements ITransformService {
     def addSounder( Map cmiMap ) {
 
         def sounderJb = new JsonBuilder()
-        def lonOffset
-        if ( cmiMap.longitudinalOffsetFromGPStoSonar != "" ) {
-            lonOffset = new Double( cmiMap.longitudinalOffsetFromGPStoSonar )
-        } else {
-            lonOffset = ""
-        }
-        def latOffset
-        if ( cmiMap.lateralOffsetFromGPStoSonar != "" ) {
-            latOffset = new Double( cmiMap.lateralOffsetFromGPStoSonar )
-        } else {
-            latOffset = ""
-        }
-        def v
-        if ( cmiMap.velocity != "" ) {
-            v = new Double( cmiMap.velocity )
-        } else {
-            v = ""
-        }
+
+        def lonOffset = CsbUtil.returnJsonValue( cmiMap.longitudinalOffsetFromGPStoSonar )
+        def latOffset = CsbUtil.returnJsonValue( cmiMap.lateralOffsetFromGPStoSonar )
+        def v = CsbUtil.returnJsonValue( cmiMap.velocity )
 
         def sounder = sounderJb {
             type "Sounder"

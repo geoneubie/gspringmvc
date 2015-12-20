@@ -1,8 +1,7 @@
 package csb.config
 
-import csb.service.UserService
+import csb.service.security.UserService
 import csb.service.security.CurrentUserDetailsService
-import csb.service.security.CurrentUserService
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

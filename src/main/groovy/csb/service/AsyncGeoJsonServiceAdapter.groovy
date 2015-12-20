@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
-class AsyncGeoJsonServiceWrapper {
+class AsyncGeoJsonServiceAdapter {
 
     private static final Logger logger =
-            LoggerFactory.getLogger( AsyncGeoJsonServiceWrapper.class )
+            LoggerFactory.getLogger( AsyncGeoJsonServiceAdapter.class )
 
     //Async implementation
     @Async( "workExecutor" )
