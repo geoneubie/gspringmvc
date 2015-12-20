@@ -57,7 +57,7 @@ class FileUploadController {
         // Validate incoming metadata fields has minimum required values
         if ( vs.validate() == false ) {
             logger.debug("JSON not valid, return...")
-            return "You must complete all required fields."
+            return "<span style=\"color:red\">You must complete all required fields*.</span>"
         }
 
         userEntryMap << [ JSON: csbMetadataInput ]

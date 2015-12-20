@@ -116,8 +116,8 @@
                                                     <tr><td>Password:</td><td><input type="password" name="password"/></td><td></td><td></td></tr>
                                                     <tr><td align="right" colspan="4"><input type="submit" value="Sign In"/></td></tr>
                                                     <tr><td colspan="4">
-                                                        <div th:if="${param.error}">
-                                                            Invalid username and password.
+                                                        <div style="color:red" th:if="${param.error}">
+                                                            Invalid login.
                                                         </div>
                                                         <div th:if="${param.logout}">
                                                             You have been logged out.
